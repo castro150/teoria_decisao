@@ -30,6 +30,22 @@
 	\end{frontmatter}
 	
 	\section{Introdução:}
+	O presente trabalho tem o objetivo de resolver um problema de otimização utilizando as técnicas escalares e de decisão assistida estudados em sala de aula, colocando em prática grande parte dos conceitos da matéria.
+	
+	O problema a ser resolvido é o seguinte:
+	\textit{Uma empresa possui um conjunto de M máquinas que devem ser utilizadas para processar N tarefas indivisíveis. Cada máquina $i$ leva um tempo $t_{ij}$ para processar uma tarefa $j$ e pode processar uma única tarefa por vez. Todas as tarefas possuem uma mesma data ideal de entrega $d$, sendo que cada tarefa $j$ sofre uma penalidade $w_j$ proporcional a cada dia que ela é entregue adiantada ou atrasada em relação a $d$.}
+	
+	\section{Formulação do Problema:}
+	Em primeiro momento é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar uma tarefa, executada pela máquina $i$. Assim:
+	 \[C_i = \sum_{j=1}^{N}t_{ij}*x_{ij}\ \forall\ i \in\ (1,...,M) \]
+	O objetivo então se torna:
+	\[min\ C_{max} \]
+	\[C_{max} = max(C_i)\ \forall\ i \in\ (1,...,M) \]
+	sujeito a:
+	\[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
+	\[\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\ (1,...,M) \]
+	\[X_{ij} \in (0, 1) \]
+	Com estas restrições, garante-se que cada tarefa vai ser cumprida por uma única máquina.
 	
 %%	\begin{figure}[h]
 %%		\centering
