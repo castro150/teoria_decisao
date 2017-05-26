@@ -10,4 +10,12 @@
 % Nota:
 %   Define a vizinhança baseado na troca de tarefas entre duas máquinas.
 % =========================================================================
-function y = neighbor2(x, n)
+function [y] = neighbor2(x)
+
+y = x;
+N = size(x, 1);
+
+machines = randi(N, 1, 2);
+temp = y(machines(1), :);
+y(machines(1), :) = y(machines(2), :);
+y(machines(2), :) = temp;

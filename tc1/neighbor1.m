@@ -11,7 +11,7 @@
 %   Define a vizinhança baseado na troca de máquinas para uma quantidade
 %   n de tarefas.
 % =========================================================================
-function y = neighbor1(x, n)
+function [y] = neighbor1(x, n)
 
 y = x;
 M = size(x, 2);

@@ -11,7 +11,7 @@
 %   Define uma solução inicial para o problema da minimização do
 %   tempo total de entrega.
 % =========================================================================
-function [x,M,N] = initialSol()
+function [x, M, N] = initialSol()
 
 M = 5;
 N = 25;
