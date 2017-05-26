@@ -11,7 +11,7 @@
 %   Minimização do tempo total de entrega usando o algoritmo
 %   Simulated Annealing, como estudado em sala de aula.
 % =========================================================================
-function [xbest, jxbest, nfe] = minTempoEntrega()
+function [xbest, jxbest, nfe] = minTempoEntrega(u, n)
 
 % Carrega dados
 load('i5x25.mat');
@@ -26,8 +26,8 @@ nfe = 0;
 t = 100;
 
 % Gera e avalia solução inicial
-[x, M, N] = initialSol();
-[jx] = fobj(x, PT);
+[x, ~, N] = initialSolTE();
+[jx] = fobjTE(x, PT);
 nfe = nfe + 1; 
 
 % Armazena melhor solução encontrada
@@ -50,15 +50,16 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     % Fitness da solução submetida ao estágio k
     fevalin = jxbest;
 
-    while (numAceites < 12*N && numTentativas < 100*N)
+    while (numAceites < 3*N && numTentativas < 25*N)
         
         % Gera uma solução na vizinhança de x
-        y = neighbor(x);
-        [jy] = fobj(y,custo,n);
+        y = neighbor1TE(x, n);
+        %y = neighbor2TE(x);
+        [jy] = fobjTE(y, PT);
         nfe = nfe + 1;        
         
         % Atualiza solução    
-        DeltaE = (jy - jx);
+        DeltaE = jy - jx;
         if (DeltaE <= 0 || rand <= exp(-DeltaE/t))
             x = y;
             jx = jy;            
@@ -75,9 +76,9 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
         % Armazena a solução corrente
         memoryfile(size(memoryfile,1)+1,:) = [x(:)' jx];
     end
-                
+    
     % Atualiza a temperatura
-    t = 0.5*t;
+    t = u*t;
     
     % Avalia critério de estagnação
     if (jxbest < fevalin)
@@ -85,7 +86,13 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     else
         numEstagiosEstagnados = numEstagiosEstagnados + 1;        
     end
-        
+	
     % Atualiza contador de estágios de temperatura
-    k = k + 1;   
+    k = k + 1;
 end
+% fprintf('\n')
+% 
+% figure
+% plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
+% xlabel('Número de iterações')
+% ylabel('Valor da função objetivo')

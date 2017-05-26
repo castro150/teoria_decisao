@@ -10,7 +10,7 @@
 % Nota:
 %   Define a vizinhança baseado na troca de tarefas entre duas máquinas.
 % =========================================================================
-function [y] = neighbor2(x)
+function [y] = neighbor2TE(x)
 
 y = x;
 N = size(x, 1);

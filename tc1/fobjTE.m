@@ -10,7 +10,7 @@
 % Nota:
 %   Define a função objetivo
 % =========================================================================
-function [f] = fobj(x, t)
+function [f] = fobjTE(x, t)
 
 M = size(x, 2);
 C = zeros(M, 1);

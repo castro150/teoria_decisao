@@ -16,6 +16,7 @@
 \usepackage[brazilian]{babel} % Traduz alguns termos para o português
 \usepackage[utf8]{inputenc} % Reconhece acentuação
 \usepackage{setspace}
+\usepackage{graphicx}
 
 
 \begin{document}
@@ -57,7 +58,7 @@ O problema a ser resolvido é o seguinte:
 A formulação do problema foi dividida em duas partes, como é discutido a seguir:
 
 \subsubsection{Minimização do Tempo Total de Entrega}
-Em primeiro momento é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar uma tarefa, executada pela máquina $i$. Assim:
+Em primeiro momento é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar as tarefas executadas pela máquina $i$. Assim:
 \[C_i = \sum_{j=1}^{N}t_{ij}*x_{ij}\ \forall\ i \in\ (1,...,M) \]
 O objetivo então se torna:
 \[min\ C_{max} \]
@@ -66,7 +67,7 @@ sujeito a:
 \[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
 \[\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\ (1,...,M) \]
 \[X_{ij} \in (0, 1) \]
-Com estas restrições, garante-se que cada tarefa vai ser cumprida por uma única máquina.
+Com estas restrições, garante-se que cada tarefa vai ser cumprida por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma linha representa qual máquina vai executar a tarefa daquela linha.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
 Agora, uma função objetivo para tratar a minimização da soma ponderada dos atrasos e adiantamentos é formulada. O momento de término da tarefa $j$ será chamado de $e_j$. Então:
@@ -78,6 +79,25 @@ sujeito a:
 \[X_{ij} \in (0, 1) \]
 onde, como já discutido, $d$ é a data ideal de entrega das tarefas e $w_j$ a penalidade proporcional a cada dia que a tarefa é entregue adiantada ou atrasada em relação a $d$.
 
+\subsection{Algoritmos de Solução:}
+Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multi objetivo.
+\subsubsection{Minimização do Tempo Total de Entrega}
+O algoritmo de otimização utilizado aqui se baseia no \textit{Simulated Annealing}, método estudado em sala de aula de fácil implementação e convergência atrativa. Este método escapa de mínimos locais com a aceitação de alguns movimentos de piora na qualidade da solução. É inspirado no recozimento físico de sólidos, e possui um parâmetro conhecido como \textit{temperatura}, que ajusta a probabilidade de um movimento de piora ser aceito. Um algoritmo simplificado para o \textit{Simulated Annealing} pode ser visto na Figura \ref{fig:algoritmo}.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=15cm]{img/a.png}
+		\caption{Algoritmo simplificado do SA.}
+		\label{fig:algoritmo}
+	\end{figure}
+	
+Para tratar o problema da minimização do tempo de entrega, é importante ter em mente a representação de uma possível solução. Esta representação, como discutido na seção A.1, é uma matriz de zeros e uns, onde o 1 representa qual máquina faz dada tarefa.
+
+A primeira etapa foi criar um algoritmo que gera uma solução inicial. Este código está no arquivo \textit{initialSolTE.m}. Uma solução é inicializada como sendo uma matriz de zeros. Então, para cada linha (tarefa), um número randômico entre 1 e a quantidade de máquinas é gerado, representado qual é a máquina escolhida para executar a tarefa daquela linha. Um número 1 é colocado na posição da linha do número randômico gerado. Repare que esta solução gerada nunca viola a restrição de que a soma dos valores de uma linha deve ser sempre 1.
+
+Em seguida, criou-se um código que é responsável por avaliar uma dada solução na função objetivo, algoritmo este que está no arquivo \textit{fobjTE.m}. Este arquivo define a função fobjTE que recebe como entrada a solução que se deseja avaliar e uma matriz com o tempo que cada máquina demora para executar cada tarefa (estes tempos são carregados do arquivo \textit{i5x25.mat} disponibilizado pelo professor). Pela multiplicação vetorial de cada linha da matriz dos tempos com cada coluna da matriz $x$ (solução), tem-se o tempo de operação de cada máquina. A avaliação da solução na função objetivo é, como já visto, o maior dentre os tempos de operação das máquinas.
+
+Antes de implementar o SA propriamente dito, foi necessário também criar funções que geram novas soluções em dada vizinhança. Para este trabalho, duas funções de vizinhança foram criadas. A primeira, para uma dada solução $x$, gera uma nova solução $y$ trocando aleatoriamente as máquinas que executam $n$ tarefas ($n$ também é um parâmetro da função), e está no arquivo \textit{neighbor1TE.m}. Repare que aqui não ocorre necessariamente uma troca entre máquinas. A outra função de vizinhança recebe uma solução $x$ e gera uma nova solução $y$ escolhendo duas linhas aleatoriamente (duas tarefas), e trocando-as, de forma que duas máquinas trocam as tarefas entre si. Está no arquivo \textit{neighbor2TE.m}.
 % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
 % should be used if it is desired that the figures are to be displayed while
 % in draft mode.
