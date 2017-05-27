@@ -28,13 +28,13 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\authorblockN{Rafael Carneiro de Castro}
-\authorblockA{\\Engenharia de Sistemas - UFMG\\
+\author{\IEEEauthorblockN{Rafael Carneiro de Castro}
+\IEEEauthorblockA{\\Engenharia de Sistemas - UFMG\\
 Matrícula: 2013030210\\
 Email: rafaelcarneiroget@hotmail.com}
 \and
-\authorblockN{Davi Pinheiro Viana}
-\authorblockA{\\Engenharia de Sistemas - UFMG\\
+\IEEEauthorblockN{Davi Pinheiro Viana}
+\IEEEauthorblockA{\\Engenharia de Sistemas - UFMG\\
 	Matrícula: 2013029912\\
 	Email: daviviana22@gmail.com}}
 
@@ -45,8 +45,6 @@ Abordagem de forma conjunta de grande parte dos conceitos vistos na disciplina "
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
-
-
 
 \section{Introdução}
 O presente trabalho tem o objetivo de resolver um problema de otimização utilizando as técnicas escalares e de decisão assistida estudados em sala de aula, colocando em prática grande parte dos conceitos da matéria.
@@ -66,7 +64,7 @@ O objetivo então se torna:
 sujeito a:
 \[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
 \[\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\ (1,...,M) \]
-\[X_{ij} \in (0, 1) \]
+\[x_{ij} \in (0, 1) \]
 Com estas restrições, garante-se que cada tarefa vai ser cumprida por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma linha representa qual máquina vai executar a tarefa daquela linha.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
@@ -76,7 +74,7 @@ onde $\Omega_i$ é o conjunto das tarefas até a tarefa $i$. A função objetivo
 \[min\ \sum_{j=1}^{N}w_j|e_j-d| \]
 sujeito a:
 \[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
-\[X_{ij} \in (0, 1) \]
+\[x_{ij} \in (0, 1) \]
 onde, como já discutido, $d$ é a data ideal de entrega das tarefas e $w_j$ a penalidade proporcional a cada dia que a tarefa é entregue adiantada ou atrasada em relação a $d$.
 
 \subsection{Algoritmos de Solução:}
@@ -85,19 +83,19 @@ Nesta seção serão discutidos e exibidos os algoritmos para solução dos prob
 O algoritmo de otimização utilizado aqui se baseia no \textit{Simulated Annealing}, método estudado em sala de aula de fácil implementação e convergência atrativa. Este método escapa de mínimos locais com a aceitação de alguns movimentos de piora na qualidade da solução. É inspirado no recozimento físico de sólidos, e possui um parâmetro conhecido como \textit{temperatura}, que ajusta a probabilidade de um movimento de piora ser aceito. Um algoritmo simplificado para o \textit{Simulated Annealing} pode ser visto na Figura \ref{fig:algoritmo}.
 
 	\begin{figure}[h]
-		\centering
-		\includegraphics[width=15cm]{img/a.png}
+%		\centering
+		\includegraphics[width=8cm]{img/sa.png}
 		\caption{Algoritmo simplificado do SA.}
 		\label{fig:algoritmo}
 	\end{figure}
 	
 Para tratar o problema da minimização do tempo de entrega, é importante ter em mente a representação de uma possível solução. Esta representação, como discutido na seção A.1, é uma matriz de zeros e uns, onde o 1 representa qual máquina faz dada tarefa.
 
-A primeira etapa foi criar um algoritmo que gera uma solução inicial. Este código está no arquivo \textit{initialSolTE.m}. Uma solução é inicializada como sendo uma matriz de zeros. Então, para cada linha (tarefa), um número randômico entre 1 e a quantidade de máquinas é gerado, representado qual é a máquina escolhida para executar a tarefa daquela linha. Um número 1 é colocado na posição da linha do número randômico gerado. Repare que esta solução gerada nunca viola a restrição de que a soma dos valores de uma linha deve ser sempre 1.
+A primeira etapa foi criar um algoritmo que gera uma solução inicial. Este código está no arquivo \texttt{initialSolTE.m}. Uma solução é inicializada como sendo uma matriz de zeros. Então, para cada linha (tarefa), um número randômico entre 1 e a quantidade de máquinas é gerado, representado qual é a máquina escolhida para executar a tarefa daquela linha. Um número 1 é colocado na posição da linha do número randômico gerado. Repare que esta solução gerada nunca viola a restrição de que a soma dos valores de uma linha deve ser sempre 1.
 
-Em seguida, criou-se um código que é responsável por avaliar uma dada solução na função objetivo, algoritmo este que está no arquivo \textit{fobjTE.m}. Este arquivo define a função fobjTE que recebe como entrada a solução que se deseja avaliar e uma matriz com o tempo que cada máquina demora para executar cada tarefa (estes tempos são carregados do arquivo \textit{i5x25.mat} disponibilizado pelo professor). Pela multiplicação vetorial de cada linha da matriz dos tempos com cada coluna da matriz $x$ (solução), tem-se o tempo de operação de cada máquina. A avaliação da solução na função objetivo é, como já visto, o maior dentre os tempos de operação das máquinas.
+Em seguida, criou-se um código que é responsável por avaliar uma dada solução na função objetivo, algoritmo este que está no arquivo \texttt{fobjTE.m}. Este arquivo define a função \emph{fobjTE} que recebe como entrada a solução que se deseja avaliar e uma matriz com o tempo que cada máquina demora para executar cada tarefa (estes tempos são carregados do arquivo \texttt{i5x25.mat} disponibilizado pelo professor). Pela multiplicação vetorial de cada linha da matriz dos tempos com cada coluna da matriz $x$ (solução), tem-se o tempo de operação de cada máquina. A avaliação da solução na função objetivo é, como já visto, o maior dentre os tempos de operação das máquinas.
 
-Antes de implementar o SA propriamente dito, foi necessário também criar funções que geram novas soluções em dada vizinhança. Para este trabalho, duas funções de vizinhança foram criadas. A primeira, para uma dada solução $x$, gera uma nova solução $y$ trocando aleatoriamente as máquinas que executam $n$ tarefas ($n$ também é um parâmetro da função), e está no arquivo \textit{neighbor1TE.m}. Repare que aqui não ocorre necessariamente uma troca entre máquinas. A outra função de vizinhança recebe uma solução $x$ e gera uma nova solução $y$ escolhendo duas linhas aleatoriamente (duas tarefas), e trocando-as, de forma que duas máquinas trocam as tarefas entre si. Está no arquivo \textit{neighbor2TE.m}.
+Antes de implementar o SA propriamente dito, foi necessário também criar funções que geram novas soluções em dada vizinhança. Para este trabalho, duas funções de vizinhança foram criadas. A primeira, para uma dada solução $x$, gera uma nova solução $y$ trocando aleatoriamente as máquinas que executam $n$ tarefas ($n$ também é um parâmetro da função), e está no arquivo \texttt{neighbor1TE.m}. Repare que aqui não ocorre necessariamente uma troca entre máquinas. A outra função de vizinhança recebe uma solução $x$ e gera uma nova solução $y$ escolhendo duas linhas aleatoriamente (duas tarefas), e trocando-as, de forma que duas máquinas trocam as tarefas entre si. Está no arquivo \texttt{neighbor2TE.m}.
 % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
 % should be used if it is desired that the figures are to be displayed while
 % in draft mode.
