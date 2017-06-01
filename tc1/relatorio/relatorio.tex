@@ -52,6 +52,7 @@ O presente trabalho tem o objetivo de resolver um problema de otimização utili
 O problema a ser resolvido é o seguinte:
 \textit{Uma empresa possui um conjunto de M máquinas que devem ser utilizadas para processar N tarefas indivisíveis. Cada máquina $i$ leva um tempo $t_{ij}$ para processar uma tarefa $j$ e pode processar uma única tarefa por vez. Todas as tarefas possuem uma mesma data ideal de entrega $d$, sendo que cada tarefa $j$ sofre uma penalidade $w_j$ proporcional a cada dia que ela é entregue adiantada ou atrasada em relação a $d$.}
 
+\section{Desenvolvimento}
 \subsection{Formulação do Problema:}
 A formulação do problema foi dividida em duas partes, como é discutido a seguir:
 
@@ -95,7 +96,44 @@ A primeira etapa foi criar um algoritmo que gera uma solução inicial. Este có
 
 Em seguida, criou-se um código que é responsável por avaliar uma dada solução na função objetivo, algoritmo este que está no arquivo \texttt{fobjTE.m}. Este arquivo define a função \emph{fobjTE} que recebe como entrada a solução que se deseja avaliar e uma matriz com o tempo que cada máquina demora para executar cada tarefa (estes tempos são carregados do arquivo \texttt{i5x25.mat} disponibilizado pelo professor). Pela multiplicação vetorial de cada linha da matriz dos tempos com cada coluna da matriz $x$ (solução), tem-se o tempo de operação de cada máquina. A avaliação da solução na função objetivo é, como já visto, o maior dentre os tempos de operação das máquinas.
 
-Antes de implementar o SA propriamente dito, foi necessário também criar funções que geram novas soluções em dada vizinhança. Para este trabalho, duas funções de vizinhança foram criadas. A primeira, para uma dada solução $x$, gera uma nova solução $y$ trocando aleatoriamente as máquinas que executam $n$ tarefas ($n$ também é um parâmetro da função), e está no arquivo \texttt{neighbor1TE.m}. Repare que aqui não ocorre necessariamente uma troca entre máquinas. A outra função de vizinhança recebe uma solução $x$ e gera uma nova solução $y$ escolhendo duas linhas aleatoriamente (duas tarefas), e trocando-as, de forma que duas máquinas trocam as tarefas entre si. Está no arquivo \texttt{neighbor2TE.m}.
+Antes de implementar o SA propriamente dito, foi necessário também criar funções que geram novas soluções em dada vizinhança. Para este trabalho, duas funções de vizinhança foram criadas. A primeira, para uma dada solução $x$, gera uma nova solução $y$ trocando aleatoriamente as máquinas que executam $n$ tarefas ($n$ também é um parâmetro da função), e está no arquivo \texttt{neighbor1TE.m}. Repare que aqui não ocorre necessariamente uma troca entre máquinas. A outra função de vizinhança recebe uma solução $x$ e gera uma nova solução $y$ escolhendo duas linhas aleatoriamente (duas tarefas), e trocando-as, de forma que duas máquinas trocam as tarefas entre si. Está no arquivo \texttt{neighbor2TE.m}. Com estas funções de vizinhança, a restrição de que cada linha pode ter apenas um número 1 (cada tarefa só pode ser executada por uma máquina) ainda é atendida.
+
+O algoritmo de otimização foi implementado no arquivo \texttt{minTempoEntrega.m}, que tem a função de mesmo nome. Utiliza a estratégia do \textit{Simulated Annealing} e também, como auxílio, todos os outros algoritmos apresentados até aqui para o problema em questão. A função \textit{minTempoEntrega} implementada no arquivo possui dois argumentos, o que vai facilitar, posteriormente, no ajuste de parâmetros do método implementado. Este ajuste será apresentado na seção de resultados.
+
+\subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
+TODO
+
+\subsection{Resultados:}
+Nesta sessão serão apresentados os resultados dos algoritmos.
+\subsubsection{Minimização do Tempo Total de Entrega}
+Como já mencionado, o algoritmo de otimização foi baseados no \textit{Simulated Annealing}. Esta abordagem exige o ajuste de alguns parâmetros, dentre eles o multiplicador $\alpha$ de temperatura, que é um valor entre $0$ e $1$, que vai diminuir gradualmente a temperatura do algoritmo, e consequentemente diminuir a probabilidade de se aceitar um movimento de piora na busca pela melhor solução. Outro parâmetro que deve ser ajustado é a quantidade $n$ de tarefas que terão a máquina aleatoriamente trocada, na primeira função de vizinhança. Os dados para execução do problema foram disponibilizados pelo professor, são carregados pelo arquivo \texttt{i5x25.mat} e podem ser vistos na tabela da Figura \ref{fig:tabela-dados}.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=5cm]{img/tabela-dados.png}
+		\caption{Tabela de dados para execução dos algoritmos.}
+		\label{fig:tabela-dados}
+	\end{figure}
+
+Para demonstrar os efeitos da temperatura (parâmetro $\alpha$), uma primeira instancia foi executada, utilizando como parâmetros $\alpha = 0.5$ e $n = 3$. A Figura \ref{fig:result-1} mostra um primeiro resultado desta execução, plotando a avaliação da solução aceita por cada iteração. Como se pode notar, no início do algoritmo, muitas soluções de piora são aceitas, e aos poucos são aceitos cada vez mais apenas movimentos de melhora. Esta execução passou por 2141 iterações e a melhor solução encontrada possui avaliação na função objetivo igual a 20.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/result-1.png}
+		\caption{Primeiro resultado para execução com $\alpha = 0.5$ e $n = 3$.}
+		\label{fig:result-1}
+	\end{figure}
+
+Executando mais uma vez, mas agora para $\alpha = 0.1$ e $n = 3$, obtemos o resultado mostrado na Figura \ref{fig:result-2}. Como se pode notar, agora menos movimentos de piora são aceitos nas iterações iniciais. Agora foram executadas 2488 iterações, com um valor ótimo igual a 14. Ao custo de mais iterações, obteve-se uma ponto de ótimo local melhor.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/result-2.png}
+		\caption{Primeiro resultado para execução com $\alpha = 0.1$ e $n = 3$.}
+		\label{fig:result-2}
+	\end{figure}
+
+
 % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
 % should be used if it is desired that the figures are to be displayed while
 % in draft mode.
