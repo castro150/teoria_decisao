@@ -17,17 +17,19 @@ jxbest = zeros(1, n);
 nfe = zeros(1, n);
 
 for i = 1:n
-    [xbest(:, :, i), jxbest(i), nfe(i)] = minTempoEntrega(0.01, 1);
+    [xbest(:, :, i), jxbest(i), nfe(i)] = minTempoEntrega(0.1, 1);
     fprintf('#%d\n', i);
 end
 
-plot(jxbest);
-%0.1 ficou 3 ficou interessante
-%0.1 ficou 1 ficou melhor
+figure;
+subplot(2,1,1);
+plot(1:n, jxbest, 'b', 1:n, mean(jxbest), 'black');
+title('Valores de ótimo');
+xlabel('Número da execução do algoritmo');
+ylabel('Valor ótimo encontrado');
 
-% fprintf('\n')
-% 
-% figure
-% plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
-% xlabel('Número de iterações')
-% ylabel('Valor da função objetivo')
+subplot(2,1,2);
+plot(1:n, nfe, 'r', 1:n, mean(nfe), 'black');
+title('Número de iterações');
+xlabel('Número da execução do algoritmo');
+ylabel('Número de iterações');

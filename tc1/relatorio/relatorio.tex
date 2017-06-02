@@ -124,7 +124,7 @@ Para demonstrar os efeitos da temperatura (parâmetro $\alpha$), uma primeira in
 		\label{fig:result-1}
 	\end{figure}
 
-Executando mais uma vez, mas agora para $\alpha = 0.1$ e $n = 3$, obtemos o resultado mostrado na Figura \ref{fig:result-2}. Como se pode notar, agora menos movimentos de piora são aceitos nas iterações iniciais. Agora foram executadas 2488 iterações, com um valor ótimo igual a 14. Ao custo de mais iterações, obteve-se uma ponto de ótimo local melhor.
+Executando mais uma vez, mas agora para $\alpha = 0.1$ e $n = 3$, obtemos o resultado mostrado na Figura \ref{fig:result-2}. Como se pode notar, agora menos movimentos de piora são aceitos nas iterações iniciais. Neste caso foram executadas 2488 iterações, com um valor ótimo igual a 14. Ao custo de mais iterações, obteve-se uma ponto de ótimo local melhor.
 
 	\begin{figure}[h]
 		\centering
@@ -133,7 +133,79 @@ Executando mais uma vez, mas agora para $\alpha = 0.1$ e $n = 3$, obtemos o resu
 		\label{fig:result-2}
 	\end{figure}
 
+É necessário então escolher quais serão os parâmetros utilizados, e ainda qual será a função de vizinhança usada. Para tanto, um script de execução foi criado e está no arquivo \texttt{multirunTE.m}. Neste, o código é executado uma quantidade de vezes desejada, e os valores de ótimo e quantidade de iterações para cada execução são plotados. Ajustando o algoritmo para $\alpha = 0.5$ e $n = 3$, após 100 execuções obtemos o resultado mostrado na Figura \ref{fig:mult-result-1}. A linha preta no meio dos gráficos representa a média dos valores. Encontrou-se valor ótimo médio igual a $17,83$ e valor médio da quantidade de iterações igual a $2209,1$.
 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-1.png}
+		\caption{100 execuções com $\alpha = 0.5$ e $n = 3$.}
+		\label{fig:mult-result-1}
+	\end{figure}
+
+Foi experimentado também a execução do algoritmo com $\alpha = 0.1$ e $\alpha = 0.01$, ambos mantendo $n = 3$. Os resultados podem ser vistos nas Figuras \ref{fig:mult-result-2} e \ref{fig:mult-result-3}, respectivamente. Para o primeiro caso, a média do valor ótimo foi $14,87$ (com mínimo em $12$ e máximo em $21$) e a média da quantidade de iterações foi $2253,6$ (com mínimo em $2001$ e máximo em $2623$). Para o segundo caso, a média do valor ótimo foi $15,95$ (com mínimo em $13$ e máximo em $19$) e a média da quantidade de iterações foi $2509,4$ (com mínimo em $2299$ e máximo em $2581$). Optou-se então por manter o algoritmo ajustado a $\alpha = 0.1$, por ter uma média de valor ótimo alcançado melhor.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-2.png}
+		\caption{100 execuções com $\alpha = 0.1$ e $n = 3$.}
+		\label{fig:mult-result-2}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-3.png}
+		\caption{100 execuções com $\alpha = 0.01$ e $n = 3$.}
+		\label{fig:mult-result-3}
+	\end{figure}
+	
+Como todos estes resultados foram obtidos executando o algoritmo com a primeira forma de vizinhança (\textit{neighbor1TE}), precisamos também decidir um valor para $n$. Mantendo $\alpha = 0.1$, \texttt{multirunTE.m} foi executado para $n = 5$ e $n = 1$. Os resultados podem ser vistos nas Figuras \ref{fig:mult-result-4} e \ref{fig:mult-result-5}, respectivamente. Para o primeiro caso, a média do valor ótimo foi $18,29$ (com mínimo em $15$ e máximo em $22$) e a média da quantidade de iterações foi $2059$ (com mínimo em $2044$ e máximo em $2085$). Para o segundo caso, a média do valor ótimo foi $14,77$ (com mínimo em $12$ e máximo em $20$) e a média da quantidade de iterações foi $2260,8$ (com mínimo em $2003$ e máximo em $2622$). Escolhemos então manter $n = 1$.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-4.png}
+		\caption{100 execuções com $\alpha = 0.1$ e $n = 5$.}
+		\label{fig:mult-result-4}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-5.png}
+		\caption{100 execuções com $\alpha = 0.1$ e $n = 1$.}
+		\label{fig:mult-result-5}
+	\end{figure}
+	
+Agora é preciso avaliar a segunda função de vizinhança, \textit{neighbor2TE}. Para este caso, o parâmetro $n$ não tem interferência, e $\alpha$ será mantido em $0.1$. Mais uma vez com a ajuda do script \texttt{multirunTE.m}, o algoritmo foi executado mais 100 vezes e o resultado pode ser visto na Figura \ref{fig:mult-result-6}. A média do valor ótimo foi $18,86$ (com mínimo em $12$ e máximo em $41$) e a média da quantidade de iterações foi $2131,1$ (com mínimo em $2003$ e máximo em $2308$). Como para este caso o valor de ótimo encontrado varia muito e chega a altos valores, escolheu-se mantar a função de vizinhança \textit{neighbor1TE}.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-6.png}
+		\caption{100 execuções com $\alpha = 0.1$ e vizinhança \textit{neighbor2TE}.}
+		\label{fig:mult-result-6}
+	\end{figure}
+	
+Com todos os ajustes feitos, o algoritmo foi executado mais 5 vezes, e o resultado sumarizado pode ser visto na Figura \ref{fig:mult-result-7}. Os resultados numéricos são apresentados na Tabela 1.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-7.png}
+		\caption{Resultado final para 5 iterações - Minimização do Tempo de Entrega.}
+		\label{fig:mult-result-7}
+	\end{figure}
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{ | l | l | l | l |}
+			\hline
+			Ótimo Encontrado & Iterações \\ \hline
+			13 & 2204 \\ \hline
+			15 & 2124 \\ \hline
+			15 & 2097 \\ \hline
+			16 & 2424 \\ \hline
+			13 & 2549 \\ \hline
+		\end{tabular}
+		\label{table:result}
+		\caption{Resultados numéricos - Minimização do Tempo de Entrega.}
+	\end{table}
 % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
 % should be used if it is desired that the figures are to be displayed while
 % in draft mode.
@@ -198,8 +270,8 @@ Executando mais uma vez, mas agora para $\alpha = 0.1$ e $n = 3$, obtemos o resu
 %\end{table}
 
 
-\section{Conclusion}
-The conclusion goes here.
+\section{Conclusão}
+LEMBRAR DE FALAR QUE O SA É BOM PARA OBTER BONS \textit{ÓTIMOS LOCAIS}, NÃO NECESSARIAMENTE ENCONTRANDO O ÓTIMO GLOBAL.
 
 % conference papers do not normally have an appendix
 
