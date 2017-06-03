@@ -47,7 +47,7 @@ Abordagem de forma conjunta de grande parte dos conceitos vistos na disciplina "
 \IEEEpeerreviewmaketitle
 
 \section{Introdução}
-O presente trabalho tem o objetivo de resolver um problema de otimização utilizando as técnicas escalares e de decisão assistida estudados em sala de aula, colocando em prática grande parte dos conceitos da matéria.
+O presente trabalho tem o objetivo de resolver um problema de otimização, utilizando técnicas escalares de decisão assistida, estudadas em sala de aula, e colocar em prática grande parte dos conceitos da matéria.
 
 O problema a ser resolvido é o seguinte:
 \textit{Uma empresa possui um conjunto de M máquinas que devem ser utilizadas para processar N tarefas indivisíveis. Cada máquina $i$ leva um tempo $t_{ij}$ para processar uma tarefa $j$ e pode processar uma única tarefa por vez. Todas as tarefas possuem uma mesma data ideal de entrega $d$, sendo que cada tarefa $j$ sofre uma penalidade $w_j$ proporcional a cada dia que ela é entregue adiantada ou atrasada em relação a $d$.}
@@ -57,16 +57,25 @@ O problema a ser resolvido é o seguinte:
 A formulação do problema foi dividida em duas partes, como é discutido a seguir:
 
 \subsubsection{Minimização do Tempo Total de Entrega}
-Em primeiro momento é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar as tarefas executadas pela máquina $i$. Assim:
+Em primeiro momento, é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar as tarefas executadas pela máquina $i$. Assim:
 \[C_i = \sum_{j=1}^{N}t_{ij}*x_{ij}\ \forall\ i \in\ (1,...,M) \]
 O objetivo então se torna:
 \[min\ C_{max} \]
 \[C_{max} = max(C_i)\ \forall\ i \in\ (1,...,M) \]
 sujeito a:
-\[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
-\[\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\ (1,...,M) \]
-\[x_{ij} \in (0, 1) \]
-Com estas restrições, garante-se que cada tarefa vai ser cumprida por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma linha representa qual máquina vai executar a tarefa daquela linha.
+
+\begin{equation}
+	\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)
+	\label{eq:rest1}
+\end{equation}
+\begin{equation}
+	\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\
+ (1,...,M)
+ 	\label{eq:rest2}
+\end{equation}
+\[ x_{ij} \in (0, 1)\]
+
+A restrição contida na equação \ref{eq:rest1}, garante que todas as tarefas serão cumpridas e, juntamente com a restrição contida na inequação \ref{eq:rest2}, garante que cada tarefa será executada por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma linha representa qual máquina vai executar a tarefa daquela linha.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
 Agora, uma função objetivo para tratar a minimização da soma ponderada dos atrasos e adiantamentos é formulada. O momento de término da tarefa $j$ será chamado de $e_j$. Então:
@@ -74,12 +83,18 @@ Agora, uma função objetivo para tratar a minimização da soma ponderada dos a
 onde $\Omega_i$ é o conjunto das tarefas até a tarefa $i$. A função objetivo pode ser escrita como:
 \[min\ \sum_{j=1}^{N}w_j|e_j-d| \]
 sujeito a:
-\[\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N) \]
-\[x_{ij} \in (0, 1) \]
+\begin{equation}
+\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)\\
+\label{eq:rest3}
+\end{equation}
+\[x_{ij} \in (0, 1)\]
+
 onde, como já discutido, $d$ é a data ideal de entrega das tarefas e $w_j$ a penalidade proporcional a cada dia que a tarefa é entregue adiantada ou atrasada em relação a $d$.
 
+A restrição contida na equação \ref{eq:rest3} limita a execução de cada tarefa por uma única máquina.
+
 \subsection{Algoritmos de Solução:}
-Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multi objetivo.
+Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multiobjetivo.
 \subsubsection{Minimização do Tempo Total de Entrega}
 O algoritmo de otimização utilizado aqui se baseia no \textit{Simulated Annealing}, método estudado em sala de aula de fácil implementação e convergência atrativa. Este método escapa de mínimos locais com a aceitação de alguns movimentos de piora na qualidade da solução. É inspirado no recozimento físico de sólidos, e possui um parâmetro conhecido como \textit{temperatura}, que ajusta a probabilidade de um movimento de piora ser aceito. Um algoritmo simplificado para o \textit{Simulated Annealing} pode ser visto na Figura \ref{fig:algoritmo}.
 
@@ -101,6 +116,12 @@ Antes de implementar o SA propriamente dito, foi necessário também criar funç
 O algoritmo de otimização foi implementado no arquivo \texttt{minTempoEntrega.m}, que tem a função de mesmo nome. Utiliza a estratégia do \textit{Simulated Annealing} e também, como auxílio, todos os outros algoritmos apresentados até aqui para o problema em questão. A função \textit{minTempoEntrega} implementada no arquivo possui dois argumentos, o que vai facilitar, posteriormente, no ajuste de parâmetros do método implementado. Este ajuste será apresentado na seção de resultados.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
+TODO
+
+\subsubsection{Otimização multiobjetivo - Soma ponderada}
+TODO
+
+\subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
 TODO
 
 \subsection{Resultados:}
