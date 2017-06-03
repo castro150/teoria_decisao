@@ -53,10 +53,10 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     while (numAceites < 3*N && numTentativas < 25*N)
         
         % Gera uma solução na vizinhança de x
-        y = neighbor1TE(x, n);
-        %y = neighbor2TE(x);
+        temp = neighbor1TE(x, n);
+        y = neighbor2TE(temp);
         [jy] = fobjTE(y, PT);
-        nfe = nfe + 1;        
+        nfe = nfe + 1;
         
         % Atualiza solução    
         DeltaE = jy - jx;

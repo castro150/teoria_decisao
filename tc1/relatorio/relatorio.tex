@@ -195,12 +195,12 @@ Como todos estes resultados foram obtidos executando o algoritmo com a primeira 
 		\label{fig:mult-result-5}
 	\end{figure}
 	
-Agora é preciso avaliar a segunda função de vizinhança, \textit{neighbor2TE}. Para este caso, o parâmetro $n$ não tem interferência, e $\alpha$ será mantido em $0.1$. Mais uma vez com a ajuda do script \texttt{multirunTE.m}, o algoritmo foi executado mais 100 vezes e o resultado pode ser visto na Figura \ref{fig:mult-result-6}. A média do valor ótimo foi $18,86$ (com mínimo em $12$ e máximo em $41$) e a média da quantidade de iterações foi $2131,1$ (com mínimo em $2003$ e máximo em $2308$). Como para este caso o valor de ótimo encontrado varia muito e chega a altos valores, escolheu-se mantar a função de vizinhança \textit{neighbor1TE}.
+Todos os resultados vistos até aqui foram com o algoritmo rodando apenas com a função de vizinhança \textit{neighbor1TE}. Agora será incorporado ao algoritmo a função \textit{neighbor2TE} seguidamente à primeira, de forma que os dois processos de vizinhança serão executados, um seguido do outro, para se alcançar maior região de busca. Com o auxilio do \texttt{multirunTE.m}, o código foi mais uma vez executado 100 vezes com $\alpha = 0.1$ e $n = 1$, e os resultados podem ser vistos na Figura \ref{fig:mult-result-6}. A média do valor ótimo foi $14,12$ (com mínimo em $12$ e máximo em $16$) e a média da quantidade de iterações foi $2356,5$ (com mínimo em $2043$ e máximo em $2568$). O desempenho foi perceptivelmente melhorado, já que uma maior região de busca é considerada, e melhores ótimos locais são alcançados.
 
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=8cm]{img/mult-result-6.png}
-		\caption{100 execuções com $\alpha = 0.1$ e vizinhança \textit{neighbor2TE}.}
+		\caption{100 execuções com $\alpha = 0.1$, $n = 1$ e vizinhança \textit{neighbor2TE} adicionada ao código.}
 		\label{fig:mult-result-6}
 	\end{figure}
 	
@@ -218,11 +218,11 @@ Com todos os ajustes feitos, o algoritmo foi executado mais 5 vezes, e o resulta
 		\begin{tabular}{ | l | l | l | l |}
 			\hline
 			Ótimo Encontrado & Iterações \\ \hline
-			13 & 2204 \\ \hline
-			15 & 2124 \\ \hline
-			15 & 2097 \\ \hline
-			16 & 2424 \\ \hline
-			13 & 2549 \\ \hline
+			15 & 2336 \\ \hline
+			14 & 2440 \\ \hline
+			13 & 2392 \\ \hline
+			15 & 2228 \\ \hline
+			12 & 2330 \\ \hline
 		\end{tabular}
 		\label{table:result}
 		\caption{Resultados numéricos - Minimização do Tempo de Entrega.}
