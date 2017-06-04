@@ -93,7 +93,7 @@ A restrição contida na equação \ref{eq:rest3}, garante que todas as tarefas 
 \subsection{Algoritmos de Solução:}
 Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multiobjetivo.
 \subsubsection{Minimização do Tempo Total de Entrega}
-O algoritmo de otimização utilizado aqui se baseia no \textit{Simulated Annealing}, método estudado em sala de aula de fácil implementação e convergência atrativa. Este método escapa de mínimos locais com a aceitação de alguns movimentos de piora na qualidade da solução. É inspirado no recozimento físico de sólidos, e possui um parâmetro conhecido como \textit{temperatura}, que ajusta a probabilidade de um movimento de piora ser aceito. Um algoritmo simplificado para o \textit{Simulated Annealing} pode ser visto na Figura \ref{fig:algoritmo}.
+O algoritmo de otimização utilizado aqui se baseia no \textit{Simulated Annealing} (SA), método estudado em sala de aula de fácil implementação e convergência atrativa. Este método escapa de mínimos locais com a aceitação de alguns movimentos de piora na qualidade da solução. É inspirado no recozimento físico de sólidos, e possui um parâmetro conhecido como \textit{temperatura}, que ajusta a probabilidade de um movimento de piora ser aceito. Um algoritmo simplificado para o \textit{Simulated Annealing} pode ser visto na Figura \ref{fig:algoritmo}.
 
 	\begin{figure}[h]
 %		\centering
@@ -136,7 +136,7 @@ O algoritmo de otimização foi implementado no arquivo \texttt{minAtrasoAdianta
 \subsubsection{Otimização multiobjetivo - Soma ponderada}
 Uma versão de resolução do problema apontado anteriormente é a otimização dos dois objetivos ao mesmo tempo (multiobjetivo). Ou seja, ao mesmo tempo em que se minimiza o \emph{tempo total de entrega}, minimiza-se também a \emph{soma ponderada dos atrasos e adiantamentos}. Essa versão do problema é mais próxima da situação real em que sempre se busca os dois objetivos.
 
-O primeiro método  aplicado para resolução da versão mutiobjetivo foi a \emph{Soma Ponderada}. Nele, as duas funções objetivos são agrupadas em uma única função. A nova função objetivo é composta de um somatório ponderado das anteriores e as restrições são as mesmas dos dois problemas. Assim, a função objetivo transformada se torna a seguinte:
+O primeiro método  aplicado para resolução da versão mutiobjetivo foi a \emph{Soma Ponderada}. Nele, as duas funções objetivos são agrupadas em uma única função. A nova função objetivo é composta de um somatório ponderado das funções anteriores e as restrições são as mesmas dos dois problemas. Assim, a função objetivo transformada se torna a seguinte:
 
 \[\mathrm{min}\ p_1 \cdot C_{\mathrm{max}} + p_2 \cdot \left( \sum_{j=1}^{N}w_j|e_j-d| \right)\]
 sujeito a:
@@ -149,9 +149,13 @@ sujeito a:
 \[p_2 \ge 0\]
 \[p_1 + p_2 = 1\]
 
-Em que $p_1$ e $p_2$ são os pesos dados às funções objetivos originais.
+Em que $p_1$ e $p_2$ são os pesos dados às funções objetivos originais. A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear.
 
-A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear. No trabalho, foi utilizado um algoritmo também baseado no \emph{Simulated Annealing} (SA), já citado anteriormente. O algoritmo se baseia em um processo que é repetido algumas vezes para encontrar um número finito de soluções Pareto-ótimas, no trabalho foram encontradas 100 (cem) soluções por execução do algoritmo. Esse método foi escolhido por ser simples e fácil de programar e, também, pelo fato da função transformada possuir apenas dois objetivos, já que, para o método da solução ponderada, não são indicadas funções com muitos objetivos pela dificuldade de controlar a diversidade das soluções encontradas. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{SP.m}.
+No trabalho, foi utilizado um algoritmo também baseado no \emph{Simulated Annealing}, já citado anteriormente. Tanto para geração de solução inicial, como para estruturas de vizinhança, foram utilizados os mesmos métodos implementados para resolução da \emph{Soma ponderada dos atrasos e adiantamentos}. Os métodos foram reutilizados por se tratarem da mesma estrutura de algoritmo e por gerarem solução e vizinhança que atendem aos dois problemas.
+
+No algoritmo, primeiramente é gerada uma solução inicial utilizando a função presente no arquivo \texttt{initialSolSPA.m}. Após, é repetido o seguinte processo: gera-se valores aleatórios de $p_1$ e $p_2$ e resolve-se o problema da  função transformada utilizando algoritmo SA. A solução pareto-ótima encontrada é armazenada. Foi feita implementação para que sejam encontradas 100 (cem) soluções por execução do algoritmo.
+
+O método da soma ponderada foi escolhido por ser simples e fácil de programar e, também, pelo fato da função transformada possuir apenas dois objetivos, já que, para o método da solução ponderada, não são indicadas funções com muitos objetivos pela dificuldade de controlar a diversidade das soluções encontradas. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{somaPonderada.m}. Nele, foi criada a função \emph{somaPonderada} que recebe os mesmos parâmetros da função \emph{minTempoEntrega} para o ajuste de parâmetros.
 
 \subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
 
