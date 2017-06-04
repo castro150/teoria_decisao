@@ -53,8 +53,16 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     while (numAceites < 3*N && numTentativas < 25*N)
         
         % Gera uma solução na vizinhança de x
-        temp = neighbor1SPA(x);
-        [y, order] = neighbor2SPA(temp, order);
+        if (numEstagiosEstagnados == 5)
+            % Se certo número de estágios estagnados for alcançado, uma
+            % função de vizinhança que gera soluções mais espaçadas é 
+            % chamada, de forma a criar uma solução numa região não
+            % explorada mais distante
+            [y] = neighbor3SPA(x);
+        else
+            temp = neighbor1SPA(x);
+            [y, order] = neighbor2SPA(temp, order);
+        end
         
         [jy] = fobjSPA(y, order, PT, WE, DD);
         nfe = nfe + 1;

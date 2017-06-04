@@ -16,7 +16,10 @@ function [y] = neighbor3SPA(x)
 y = x;
 M = size(x, 2);
 
+% Seleciona duas máquinas aleatórias, para terem as tarefas trocadas
 machines = randi(M, 1, 2);
+
+% Trocando as tarefas das duas máquinas
 temp = y(:, machines(1));
 y(:, machines(1)) = y(:, machines(2));
 y(:, machines(2)) = temp;
