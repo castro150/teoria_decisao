@@ -41,7 +41,7 @@ Email: rafaelcarneiroget@hotmail.com}
 \maketitle
 
 \begin{abstract}
-Abordagem de forma conjunta de grande parte dos conceitos vistos na disciplina "ELE088 - Teoria da Decisão", através de um problema de escalonamento de tarefas.
+Abordagem de forma conjunta de grande parte dos conceitos vistos na disciplina "ELE088 - Teoria da Decisão", através de um problema de escalonamento de tarefas. O problema foi resolvido através de implementações mono e multiobjetivo e utilizando o método de auxílio à tomada de decisão Programação de Compromissos.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -51,6 +51,8 @@ O presente trabalho tem o objetivo de resolver um problema de otimização, util
 
 O problema a ser resolvido é o seguinte:
 \textit{Uma empresa possui um conjunto de M máquinas que devem ser utilizadas para processar N tarefas indivisíveis. Cada máquina $i$ leva um tempo $t_{ij}$ para processar uma tarefa $j$ e pode processar uma única tarefa por vez. Todas as tarefas possuem uma mesma data ideal de entrega $d$, sendo que cada tarefa $j$ sofre uma penalidade $w_j$ proporcional a cada dia que ela é entregue adiantada ou atrasada em relação a $d$.}
+
+Deve ser feita a formulação e resolução do problema nas versões mono e multiobjetivo e também utilização da técnica de análise de decisão \emph{Programação de Compromissos}.
 
 \section{Desenvolvimento}
 \subsection{Formulação do Problema:}
@@ -65,18 +67,18 @@ O objetivo então se torna:
 sujeito a:
 
 \begin{equation}
-	\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)
+	\sum_{i=1}^{N}x_{ij}=1\ \forall\ j \in\ (1,...,M)
 	\label{eq:rest1}
 \end{equation}
 \[ x_{ij} \in (0, 1)\]
 
-A restrição contida na equação \ref{eq:rest1}, garante que todas as tarefas serão cumpridas e, também, que cada tarefa será executada por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma linha representa qual máquina vai executar a tarefa daquela linha.
+A restrição contida na equação \ref{eq:rest1}, garante que todas as tarefas serão cumpridas e, também, que cada tarefa será executada por uma única máquina. A matriz $x$ é composta por zeros e uns. Cada uma das suas linhas, então, vai representar uma tarefa, e cada coluna, uma máquina. O número 1 em uma coluna representa qual máquina vai executar a tarefa daquela linha.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
 Agora, uma função objetivo para tratar a minimização da soma ponderada dos atrasos e adiantamentos é formulada. O momento de término da tarefa $j$ será chamado de $e_j$. Então:
-\[e_j = \sum_{i=1}^{M}t_{ik}\ \forall\ k \in\ \Omega_i \]
-onde $\Omega_i$ é o conjunto das tarefas até a tarefa $i$. A função objetivo pode ser escrita como:
-\[min\ \sum_{j=1}^{N}w_j|e_j-d| \]
+\[e_j = \sum{}{}t_{ik}\ \forall\ k \in\ \Omega_j \]
+onde $\Omega_j$ é o conjunto das tarefas até a tarefa $j$ executadas por uma mesma máquina $i$. A função objetivo pode ser escrita como:
+\[\mathrm{min}\ \sum_{j=1}^{N}w_j|e_j-d| \]
 sujeito a:
 \begin{equation}
 \sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)\\
@@ -86,7 +88,7 @@ sujeito a:
 
 onde, como já discutido, $d$ é a data ideal de entrega das tarefas e $w_j$ a penalidade proporcional a cada dia que a tarefa é entregue adiantada ou atrasada em relação a $d$.
 
-A restrição contida na equação \ref{eq:rest3} limita a execução de cada tarefa por uma única máquina.
+A restrição contida na equação \ref{eq:rest3}, garante que todas as tarefas serão cumpridas e, também, que cada tarefa será executada por uma única máquina
 
 \subsection{Algoritmos de Solução:}
 Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multiobjetivo.
