@@ -25,7 +25,7 @@ m = 2;          % número de objetivos
 [xo, ~, N] = initialSolTE();
 
 load('i5x25.mat');
-for i = 1:10   % número de soluções Pareto-ótimas ESTIMADAS
+for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
 
     w = rand(1,m);
     w = w/sum(w);       
