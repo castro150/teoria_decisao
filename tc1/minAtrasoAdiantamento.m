@@ -104,9 +104,9 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     % Atualiza contador de estágios de temperatura
     k = k + 1;
 end
-% fprintf('\n')
-% 
-% figure
-% plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
-% xlabel('Número de iterações')
-% ylabel('Valor da função objetivo')
+fprintf('\n')
+
+figure
+plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
+xlabel('Número de iterações')
+ylabel('Valor da função objetivo')
