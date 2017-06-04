@@ -13,11 +13,14 @@
 %
 % Parametros:
 %   u: taxa de decaimento da temperatura
-%   n: quantidade de maquinas trocadas na estrutura de vizinhanca
 % 
+% Retorno:
+%   X: valores das solucoes pareto-otimas
+%  jX: Imagem de X
+%
 % Exemplo de execucao: somaPonderada(0.1,1);
 % =========================================================================
-function [] = somaPonderada(u, n)
+function [X, jX] = somaPonderada(u)
 
 m = 2; % número de objetivos
 [xo, order, N] = initialSolSPA();
