@@ -75,8 +75,10 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
             end
             
             % Avalia nova solucao gerada
-            [jys] = fobjPW(y, PT, WE, DD);
-            jy = w*jys;
+            f1 = fobjTE(y, PT);
+            f2 = fobjSPA(y, order, PT, WE, DD);
+            jy = w(1)*f1 + w(2)*f2;
+            
             nfe = nfe + 1;
 
             % Atualiza solução    
@@ -111,7 +113,10 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
     
     % Armazena solucao encontrada
     X(:,:,i) = xo;
-    jX(:,i) = fobjPW(xo, PT, WE, DD);
+    
+    f1 = fobjTE(xo, PT);
+    f2 = fobjSPA(xo, order, PT, WE, DD);
+    jX(:,i) = [f1  f2]';
     
     % Atualiza solucao
     xo = X(:,:,i);
