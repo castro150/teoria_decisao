@@ -27,7 +27,7 @@ t = 100;
 
 % Gera e avalia solução inicial
 [x, ~, N] = initialSolTE();
-[jx] = fobjAA(x, PT, WE, DD);
+[jx] = fobjSPA(x, PT, WE, DD);
 nfe = nfe + 1; 
 
 % Armazena melhor solução encontrada
@@ -55,7 +55,7 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
         % Gera uma solução na vizinhança de x
         temp = neighbor1TE(x, n);
         y = neighbor2TE(temp);
-        [jy] = fobjAA(y, PT, WE, DD);
+        [jy] = fobjSPA(y, PT, WE, DD);
         nfe = nfe + 1;
         
         % Atualiza solução    

@@ -10,7 +10,7 @@
 % Nota:
 %   Define a função objetivo para somatorio dos atrasos e adiantamentos.
 % =========================================================================
-function f = fobjAA(x, t, w, d)
+function f = fobjSPA(x, t, w, d)
 
 nTarefas = length(x(:,1));
 
