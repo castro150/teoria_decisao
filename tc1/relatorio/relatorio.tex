@@ -60,7 +60,7 @@ A formulação do problema foi dividida em duas partes, como é discutido a segu
 Em primeiro momento, é preciso construir uma função objetivo e suas eventuais restrições para minimização do tempo total de entrega de todas as tarefas. Considere $C_i$ como sendo o tempo necessário para se terminar as tarefas executadas pela máquina $i$. Assim:
 \[C_i = \sum_{j=1}^{N}t_{ij}*x_{ij}\ \forall\ i \in\ (1,...,M) \]
 O objetivo então se torna:
-\[min\ C_{max} \]
+\[\mathrm{min}\ C_{max} \]
 \[C_{max} = max(C_i)\ \forall\ i \in\ (1,...,M) \]
 sujeito a:
 
@@ -117,12 +117,50 @@ O algoritmo de otimização foi implementado no arquivo \texttt{minTempoEntrega.
 
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
 TODO
-
-\subsubsection{Otimização multiobjetivo - Soma ponderada}
+\\
 TODO
+\\TODO
+\subsubsection{Otimização multiobjetivo - Soma ponderada}
+Uma versão de resolução do problema apontado anteriormente é a otimização dos dois objetivos ao mesmo tempo (multiobjetivo). Ou seja, ao mesmo tempo em que se minimiza o \emph{tempo total de entrega}, minimiza-se também a \emph{soma ponderada dos atrasos e adiantamentos}. Essa versão do problema é mais próxima da situação real em que sempre se busca os dois objetivos.
+
+O primeiro método  aplicado para resolução da versão mutiobjetivo foi a \emph{Soma Ponderada}. Nele, as duas funções objetivos são agrupadas em uma única função. A nova função objetivo é composta de um somatório ponderado das anteriores e as restrições são as mesmas dos dois problemas. Assim, a função objetivo transformada se torna a seguinte:
+
+\[\mathrm{min}\ p_1 \cdot C_{\mathrm{max}} + p_2 \cdot \left( \sum_{j=1}^{N}w_j|e_j-d| \right)\]
+sujeito a:
+\begin{equation}
+\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)
+\label{eq:rest4}
+\end{equation}
+\begin{equation}
+\sum_{j=1}^{N}t_{ij}*x_{ij} <= C_{max}\ \forall\ i \in\
+(1,...,M)
+\label{eq:rest5}
+\end{equation}
+\[x_{ij} \in (0, 1)\]
+\[p_1 \ge 0\]
+\[p_2 \ge 0\]
+\[p_1 + p_2 = 1\]
+
+Em que $p_1$ e $p_2$ são os pesos dados às funções objetivos originais.
+
+A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear. No trabalho, foi utilizado um algoritmo também baseado no \emph{Simulated Annealing} (SA), já citado anteriormente. O algoritmo se baseia em um processo que é repetido algumas vezes para encontrar um número finito de soluções Pareto-ótimas, no trabalho foram encontradas 100 (cem) soluções por execução do algoritmo. Esse método foi escolhido por ser simples e fácil de programar e, também, pelo fato da função transformada possuir apenas dois objetivos, já que, para o método da solução ponderada, não são indicadas funções com muitos objetivos pela dificuldade de controlar a diversidade das soluções encontradas. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{PW.m}.
 
 \subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
-TODO
+
+O segundo método aplicado para resolução da versão multiobjetivo foi o $\epsilon$-restrito. Nele, escolhe-se uma das funções objetivos para se minimizar e as demais se tornam restrições de desigualdade para o problema transformado. No trabalho, foi escolhido minimizar a função \emph{somatório dos atrasos e adiantamentos} e a função \emph{tempo total de entrega} se tornou uma restrição. Assim, a função objetivo transformada se tornou a seguinte:
+
+\[\mathrm{min}\ \sum_{j=1}^{N}w_j|e_j-d| \]
+sujeito a:
+\begin{equation}
+C_{max} \le \epsilon_1
+\end{equation}
+\begin{equation}
+\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)\\
+\label{eq:rest6}
+\end{equation}
+\[x_{ij} \in (0, 1)\]
+
+A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear. No trabalho, foi utilizado novamente um algoritmo baseado no \emph{Simulated Annealing} (SA), já citado anteriormente. O algoritmo repete o método SA para encontrar a solução ótima, variando o valor de $\epsilon_1$. O processo é para encontrar um número finito de soluções Pareto-ótimas, no trabalho foram encontradas 100 (cem) soluções por execução do algoritmo. Esse método foi escolhido por ser mais robusto que a \emph{Soma Ponderada} e pelo fato de se ter apenas dois objetivos. O \emph{$\epsilon$-restrito}, para resolução de problemas com mais de dois objetivos, pode gerar funções transformadas infactíveis. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{PE.m}.
 
 \subsection{Resultados:}
 Nesta sessão serão apresentados os resultados dos algoritmos.

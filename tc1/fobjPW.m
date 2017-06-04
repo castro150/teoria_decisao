@@ -8,17 +8,11 @@
 % Engenharia de Sistemas
 %
 % Nota:
-%   Define a função objetivo para o tempo total de entrega
+%   Define a função objetivo para o problema da minimização da soma
+%   ponderada dos objetivos: tempo total de entrega e soma dos atrasos e
+%   adiantamentos.
 % =========================================================================
-function [f] = fobjTE(x, t)
+function f = fobjPW(x, t, w, d, p)
 
-M = size(x, 2);
-C = zeros(M, 1);
-
-% Obtendo o tempo de operação de cada máquina.
-for i = 1:M
-    C(i) = t(i, :)*x(:, i);
 end
 
-% Extraindo o maior tempo entre as máquinas.
-f = max(C);
