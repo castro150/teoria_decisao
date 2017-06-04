@@ -8,10 +8,10 @@
 % Engenharia de Sistemas
 %
 % Nota:
-%   Minimização do tempo total de entrega usando o algoritmo
-%   Simulated Annealing, como estudado em sala de aula.
+%   Minimização da soma ponderada dos atrasos e adiantamentos usando o
+%   algoritmo Simulated Annealing, como estudado em sala de aula.
 % =========================================================================
-function [xbest, jxbest, nfe] = minAtrasoAdiantamento(u, n)
+function [xbest, jxbest, nfe] = minAtrasoAdiantamento(u)
 
 % Carrega dados
 load('i5x25.mat');
@@ -26,8 +26,8 @@ nfe = 0;
 t = 100;
 
 % Gera e avalia solução inicial
-[x, ~, N] = initialSolTE();
-[jx] = fobjSPA(x, PT, WE, DD);
+[x, order, N] = initialSolSPA();
+[jx] = fobjSPA(x, order, PT, WE, DD);
 nfe = nfe + 1; 
 
 % Armazena melhor solução encontrada
@@ -53,9 +53,10 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     while (numAceites < 3*N && numTentativas < 25*N)
         
         % Gera uma solução na vizinhança de x
-        temp = neighbor1TE(x, n);
-        y = neighbor2TE(temp);
-        [jy] = fobjSPA(y, PT, WE, DD);
+        temp = neighbor1SPA(x);
+        [y, order] = neighbor2SPA(temp, order);
+        
+        [jy] = fobjSPA(y, order, PT, WE, DD);
         nfe = nfe + 1;
         
         % Atualiza solução    
@@ -92,7 +93,7 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
 end
 fprintf('\n')
 
-figure
-plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
-xlabel('Número de iterações')
-ylabel('Valor da função objetivo')
+%figure
+%plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
+%xlabel('Número de iterações')
+%ylabel('Valor da função objetivo')
