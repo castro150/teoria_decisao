@@ -277,6 +277,74 @@ Com todos os ajustes feitos, o algoritmo foi executado mais 5 vezes, e o resulta
 		\label{table:result}
 		\caption{Resultados numéricos - Minimização do Tempo de Entrega.}
 	\end{table}
+	
+\subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
+Para este problema também é necessário fazer o ajuste do parâmetro de temperatura $\alpha$, que o parâmetro de multiplicação do decaimento da temperatura, como já mencionado. Para ilustrar o efeito deste parâmetro no problema, executou-se uma vez com $\alpha = 0.9$. Vendo na Figura \ref{fig:result-spa-1}, é possível notar que as iterações iniciais do algoritmo permitem muitos movimentos de piora. Agora se o algoritmo for executado com $\alpha = 0.1$, como pode ser visto na Figura \ref{fig:result-spa-2}, uma menor quantidade de movimentos de piora é aceito, já que a temperatura decaí mais rapidamente.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/result-spa-1.png}
+		\caption{Primeiro resultado para execução com $\alpha = 0.9$.}
+		\label{fig:result-spa-1}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/result-spa-2.png}
+		\caption{Primeiro resultado para execução com $\alpha = 0.1$.}
+		\label{fig:result-spa-2}
+	\end{figure}
+	
+Agora para escolher um ajuste de $\alpha$, o algoritmo de otimização do problema foi executado 100 vezes, com auxilio do script \texttt{multirunSPA.m} com $\alpha = 0.1$. O resultado das 100 execuções pode ser visto na Figura \ref{fig:mult-result-spa-1}. A média do valor ótimo foi $580,2$ (com mínimo em $321$ e máximo em $1095$) e a média da quantidade de iterações foi $1893$ (com mínimo em $1397$ e máximo em $2113$).
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-spa-1.png}
+		\caption{100 execuções com $\alpha = 0.1$.}
+		\label{fig:mult-result-spa-1}
+	\end{figure}
+	
+Mais uma vez 100 execuções foram feitas, mas com $\alpha = 0.0001$. A Figura \ref{fig:mult-result-spa-2} ilustra os resultados. A média do valor ótimo foi $581,45$ (com mínimo em $357$ e máximo em $1068$) e a média da quantidade de iterações foi $1941,2$ (com mínimo em $1517$ e máximo em $2116$).
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-spa-2.png}
+		\caption{100 execuções com $\alpha = 0.0001$.}
+		\label{fig:mult-result-spa-2}
+	\end{figure}
+	
+Por último, 100 execuções foram feitas com $\alpha = 0.9$. A Figura \ref{fig:mult-result-spa-3} ilustra os resultados. A média do valor ótimo foi $495,6$ (com mínimo em $308$ e máximo em $786$) e a média da quantidade de iterações foi $1895,8$ (com mínimo em $910$ e máximo em $2124$). Com este ajuste de parâmetro, melhor média de valor ótimo foi alcançada, e ainda o teto do ótimo foi reduzido. Por isso, esta será adotada como parametrização final.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-spa-3.png}
+		\caption{100 execuções com $\alpha = 0.9$.}
+		\label{fig:mult-result-spa-3}
+	\end{figure}
+	
+Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, e o resultado sumarizado pode ser visto na Figura \ref{fig:mult-result-spa-4}. Os resultados numéricos são apresentados na Tabela 2.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/mult-result-spa-4.png}
+		\caption{5 execuções finais com $\alpha = 0.9$.}
+		\label{fig:mult-result-spa-4}
+	\end{figure}
+	
+	\begin{table}
+		\centering
+		\begin{tabular}{ | l | l | l | l |}
+			\hline
+			Ótimo Encontrado & Iterações \\ \hline
+			691 & 1359 \\ \hline
+			381 & 2124 \\ \hline
+			624 & 2010 \\ \hline
+			619 & 1835 \\ \hline
+			294 & 2020 \\ \hline
+		\end{tabular}
+		\label{table:result2}
+		\caption{Resultados numéricos - Minimização da Soma Ponderada dos Atrasos e Adiantamentos.}
+	\end{table}
 % Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
 % should be used if it is desired that the figures are to be displayed while
 % in draft mode.
