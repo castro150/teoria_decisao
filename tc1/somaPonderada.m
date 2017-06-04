@@ -18,7 +18,7 @@
 %   X: valores das solucoes pareto-otimas
 %  jX: Imagem de X
 %
-% Exemplo de execucao: somaPonderada(0.1,1);
+% Exemplo de execucao: somaPonderada(0.1);
 % =========================================================================
 function [X, jX] = somaPonderada(u)
 

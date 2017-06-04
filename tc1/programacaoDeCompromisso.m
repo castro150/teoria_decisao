@@ -17,27 +17,24 @@
 %   X: valores das solucoes pareto-otimas
 %  jX: Imagem de X
 %
-% Exemplo de execucao: somaPonderada(0.1,1);
+% Exemplo de execucao: programacaoDeCompromisso(0.1);
 % =========================================================================
 function [X, jX] = programacaoDeCompromisso(u)
 
-fobj = @fobjPW;
-
-u = 0.1;
-n = 1;
 m = 2;          % número de objetivos
-f_estrela = [14 400]';
+f_star = [14 400]';
 r = 0.5;
 
-[xo, ~, N] = initialSolTE();
+[xo, order, N] = initialSolSPA();
 
 load('i5x25.mat');
 for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
-
+    fprintf('Calculando #%d solucao pareto-otima\n', i);
+    
     w = rand(1,m);
     w = w/sum(w);       
     
-    % INICIO
+    %-----------------------------Inicio do SA-----------------------------
     k = 0;
     
     % Contadordo número de avaliações de f(.)
@@ -46,17 +43,15 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
     % Temperatura inicial
     t = 100;
     
-    [jxs] = fobjPW(xo, PT, WE, DD);
-    jx = 0;
-    for j=1:m
-        jx = jx + w(j)*(abs(jxs(j) - f_estrela(j))^r);
-    end
+    % Calcula funcao objetivo da programacao de compromissos
+    f1 = fobjTE(xo, PT);
+    f2 = fobjSPA(xo, order, PT, WE, DD);
+    jx = w(1)*(abs(f1 - f_star(1))^r)+ w(2)*(abs(f2 - f_star(2))^r);
     jx = jx^(1/r);
     
     nfe = nfe + 1; 
 
     % Armazena melhor solução encontrada
-    xbest  = xo;
     jxbest = jx;
 
     % Critério de parada do algoritmo
@@ -73,16 +68,21 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
         fevalin = jxbest;
 
         while (numAceites < 3*N && numTentativas < 25*N)
-
             % Gera uma solução na vizinhança de x
-            temp = neighbor1TE(xo, n);
-            y = neighbor2TE(temp);
-            [jys] = fobjPW(y, PT, WE, DD);
-            
-            jy = 0;
-            for j=1:m
-                jy = jy + w(j)*(abs(jys(j) - f_estrela(j))^r);
+            if (numEstagiosEstagnados == 5)
+                % Se certo número de estágios estagnados for alcançado, uma
+                % função de vizinhança que gera soluções mais espaçadas é 
+                % chamada, de forma a criar uma solução numa região não
+                % explorada mais distante
+                y = neighbor3SPA(xo);
+            else
+                temp = neighbor1SPA(xo);
+                [y, order] = neighbor2SPA(temp, order);
             end
+            
+            f1 = fobjTE(y, PT);
+            f2 = fobjSPA(y, order, PT, WE, DD);
+            jy = w(1)*(abs(f1-f_star(1))^r)+w(2)*(abs(f2-f_star(2))^r);
             jy = jy^(1/r);
             
             nfe = nfe + 1;
@@ -96,7 +96,6 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
 
                 % Atualiza melhor solução encontrada
                 if (jx < jxbest)
-                    xbest  = xo;
                     jxbest = jx;                
                 end        
             end
@@ -116,15 +115,16 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
         % Atualiza contador de estágios de temperatura
         k = k + 1;
     end
+    %------------------------------Fim do SA-------------------------------
     
-    %FIM
-    
+    % Armazena solucao encontrada
     X(:,:,i) = xo;
     
-    jX(:,i) = fobjPW(xo, PT, WE, DD);
+    f1 = fobjTE(xo, PT);
+    f2 = fobjSPA(xo, order, PT, WE, DD);
+    jX(:,i) = [f1  f2]';
     
     xo = X(:,:,i);
-    
 end
 
 % Plota espaço de objetivos
