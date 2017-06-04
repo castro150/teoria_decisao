@@ -12,7 +12,7 @@
 % =========================================================================
 function f = fobjAA(x, t, w, d)
 
-nTarefas = length(x(1,:));
+nTarefas = length(x(:,1));
 
 e = zeros(1, nTarefas);
 
