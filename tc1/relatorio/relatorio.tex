@@ -159,12 +159,12 @@ O método da soma ponderada foi escolhido por ser simples e fácil de programar 
 
 \subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
 
-O segundo método aplicado para resolução da versão multiobjetivo foi o $\epsilon$-restrito. Nele, escolhe-se uma das funções objetivos para se minimizar e as demais se tornam restrições de desigualdade para o problema transformado. No trabalho, foi escolhido minimizar a função \emph{somatório dos atrasos e adiantamentos} e a função \emph{tempo total de entrega} se tornou uma restrição. Assim, a função objetivo transformada se tornou a seguinte:
+O segundo método aplicado para resolução da versão multiobjetivo foi o \emph{$\epsilon$-restrito}. Nele, escolhe-se uma das funções objetivos para se minimizar e as demais se tornam restrições de desigualdade para o problema transformado. No trabalho, foi escolhido minimizar a função \emph{somatório dos atrasos e adiantamentos} e a função \emph{tempo total de entrega} se tornou uma restrição. Assim, a função objetivo transformada se tornou a seguinte:
 
 \[\mathrm{min}\ \sum_{j=1}^{N}w_j|e_j-d| \]
 sujeito a:
 \begin{equation}
-C_{max} \le \epsilon_1
+C_{\mathrm{max}} \le \epsilon_1
 \end{equation}
 \begin{equation}
 \sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)\\
@@ -172,7 +172,13 @@ C_{max} \le \epsilon_1
 \end{equation}
 \[x_{ij} \in (0, 1)\]
 
-A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear. No trabalho, foi utilizado novamente um algoritmo baseado no \emph{Simulated Annealing} (SA), já citado anteriormente. O algoritmo repete o método SA para encontrar a solução ótima, variando o valor de $\epsilon_1$. O processo é para encontrar um número finito de soluções Pareto-ótimas, no trabalho foram encontradas 100 (cem) soluções por execução do algoritmo. Esse método foi escolhido por ser mais robusto que a \emph{Soma Ponderada} e pelo fato de se ter apenas dois objetivos. O \emph{$\epsilon$-restrito}, para resolução de problemas com mais de dois objetivos, pode gerar funções transformadas infactíveis. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{ER.m}.
+A função objetivo transformada pode ser resolvida por qualquer método de otimização não linear. No trabalho, foi utilizado novamente um algoritmo baseado no \emph{Simulated Annealing} (SA), já citado anteriormente. Assim como na \emph{Soma ponderada}, foram utilizados os métodos de geração de solução inicial e de vizinhança do método da \emph{Soma dos atrasos e adiantamentos}.
+
+O algoritmo gera uma solução inicial e repete o método SA para encontrar o conjunto de soluções pareto-ótimas, variando o valor de $\epsilon_1$. No trabalho foram encontradas 100 (cem) soluções por execução do algoritmo.
+
+Esse método foi escolhido por ser mais robusto que a \emph{Soma Ponderada} e pelo fato de se ter apenas dois objetivos, já que o \emph{$\epsilon$-restrito}, para resolução de problemas com mais de dois objetivos, pode gerar funções transformadas infactíveis. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{epsilonRestrito.m}.
+
+\subsubsection{Programação de Compromisso}
 
 \subsection{Resultados:}
 Nesta sessão serão apresentados os resultados dos algoritmos.
