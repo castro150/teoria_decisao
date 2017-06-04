@@ -228,5 +228,6 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
 end
 % Fim da obtencao das solucoes pareto-otimas ++++++++++++++++++++++++++++++
 
+% Plota espaço de objetivos
 plot(jX(1,:),jX(2,:),'ro')
 xlabel('f1'), ylabel('f2')

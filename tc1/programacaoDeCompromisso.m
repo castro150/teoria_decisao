@@ -9,11 +9,17 @@
 %
 % Nota:
 %   Estratégia para escolha de soluções de programação de compromisso
+%
+% Parametros:
+%   u: taxa de decaimento da temperatura
+% 
+% Retorno:
+%   X: valores das solucoes pareto-otimas
+%  jX: Imagem de X
+%
+% Exemplo de execucao: somaPonderada(0.1,1);
 % =========================================================================
-
-clear all
-close all
-clc
+function [X, jX] = programacaoDeCompromisso(u)
 
 fobj = @fobjPW;
 
@@ -121,20 +127,6 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
     
 end
 
-% Plota espaço de objetivos se m = 2 ou m = 3
+% Plota espaço de objetivos
 plot(jX(1,:),jX(2,:),'ro')
 xlabel('f1'), ylabel('f2')
-
-% Plota espaço de decisão se n = 2 ou n = 3
-%if n == 2
-%    figure
-%    plot(X(1,:),X(2,:),'ro')
-%    xlabel('x1'), ylabel('x2')      
-%elseif n == 3
-%    figure
-%    plot3(X(1,:),X(2,:),X(3,:), 'ro')
-%    xlabel('x1'), ylabel('x2'), zlabel('x3')
-%    box on
-%end
-
-
