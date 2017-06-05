@@ -37,7 +37,7 @@ for i = 1:100   % número de soluções Pareto-ótimas ESTIMADAS
     %-----------------------------Inicio do SA-----------------------------
     k = 0;
     
-    % Contadordo número de avaliações de f(.)
+    % Contador do número de avaliações de f(.)
     nfe = 0; 
 
     % Temperatura inicial
