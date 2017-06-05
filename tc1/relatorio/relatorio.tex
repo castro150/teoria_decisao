@@ -179,6 +179,27 @@ O algoritmo gera uma solução inicial e repete o método SA para encontrar o co
 Esse método foi escolhido por ser mais robusto que a \emph{Soma Ponderada} e pelo fato de se ter apenas dois objetivos, já que o \emph{$\epsilon$-restrito}, para resolução de problemas com mais de dois objetivos, pode gerar funções transformadas infactíveis. A implementação da resolução do problema pode ser encontrada no arquivo \texttt{epsilonRestrito.m}.
 
 \subsubsection{Programação de Compromisso}
+Além dos métodos utilizados para resolver o problema multiobjetivo, foi implementado o método \emph{Programação de Compromisso}. Essa é uma técnica de análise de decisão multicritério que visa encontrar a melhor solução de compromisso para um problema de otimização com múltiplos objetivos.
+
+A análise para encontrar a solução de compromisso consiste no decisor definir valores aceitáveis para as funções objetivo do problema e então, é feita a minimização encontrando soluções que atendam aos valores definidos.
+
+Para aplicar a técnica, foi feita a seguinte transformação no problema multiobjetivo:
+
+\[ \mathrm{min} {\left[ w_1 \cdot {| f_1(x) - f_1^{*} |}^{r} + w_2 \cdot {| f_2(x) - f_2^{*} |}^{r} \right]}^{\frac{1}{r}} \]
+
+sujeito a
+\begin{equation}
+\sum_{i=1}^{M}x_{ij}=1\ \forall\ j \in\ (1,...,N)
+\label{eq:rest5}
+\end{equation}
+
+\[1 \le r \le \infty \]
+
+Em que $w_1$ e $w_2$ são pesos que caracterizam a preferência do decisor, $f_1(x)$ é a função objetivo do problema do \emph{Tempo Total de entrega}, $f_2(x)$ é a função objetivo do problema da \emph{Soma Ponderada dos Atrasos e Adiantamentos}, $r$ é um parâmetro variável que define se será feita a minimização da soma dos desvios ou do máximo desvio e $f_{1}^*$ e $f_{2}^{*}$ são parâmetros que o decisor define como serem valores aceitáveis das funções objetivos. No caso do problema a ser resolvido, $f_1^*$ define o tempo total de entrega aceitável e $f_2^*$ define a soma ponderada dos atrasos e adiantamentos aceitável.
+
+A função da \emph{Programação de Compromisso} também pode ser resolvida por qualquer método de otimização não linear e para resolução dela foi utilizado o algoritmo baseado no \emph{Simulated Annealing}. Também foram utilizados os métodos de geração de solução inicial e de vizinhança do método da \emph{Soma dos atrasos e adiantamentos}.
+
+O algoritmo gera uma solução inicial e repete o método SA para encontrar o conjunto de soluções pareto-ótimas variando os valores de $w_1$ e $w_2$. Foi feita essa implementação pelo fato dos alunos não terem conhecimento suficiente do problema para escolher valores de pesos precisos para o problema. Além disso, baseado nas execuções dos métodos \emph{Soma Ponderada} e \emph{$\epsilon$-restrito} foi escolhido o valor de $14$ para o parâmetro $f_1^*$ e $400$ para o parâmetro $f_2^*$. Esses parâmetros podem ser facilmente alterados no arquivo com a implementação do algoritmo. O último parâmetro do método é o $r$ que, após algumas execuções do algoritmo, foi escolhido o valor $0,5$. A implementação da \emph{Programação de Compromisso} pode ser encontrada no arquivo \texttt{programacaoDeCompromisso.m}.
 
 \subsection{Resultados:}
 Nesta sessão serão apresentados os resultados dos algoritmos.
