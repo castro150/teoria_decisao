@@ -10,6 +10,12 @@
 % Nota:
 %   Minimização do tempo total de entrega usando o algoritmo
 %   Simulated Annealing, como estudado em sala de aula.
+%
+% Parametros:
+%   u: taxa de decaimento da temperatura
+%   n: quantidade de maquinas trocadas na estrutura de vizinhanca
+% 
+% Exemplo de execucao: minTempoEntrega(0.1,1);
 % =========================================================================
 function [xbest, jxbest, nfe] = minTempoEntrega(u, n)
 

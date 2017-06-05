@@ -10,6 +10,11 @@
 % Nota:
 %   Minimização da soma ponderada dos atrasos e adiantamentos usando o
 %   algoritmo Simulated Annealing, como estudado em sala de aula.
+%
+% Parametros:
+%   u: taxa de decaimento da temperatura
+% 
+% Exemplo de execucao: minAtrasoAdiantamento(0.1);
 % =========================================================================
 function [xbest, jxbest, nfe] = minAtrasoAdiantamento(u)
 
@@ -99,9 +104,9 @@ while (numEstagiosEstagnados <= 10 && nfe < 2000)
     % Atualiza contador de estágios de temperatura
     k = k + 1;
 end
-fprintf('\n')
-
-%figure
-%plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
-%xlabel('Número de iterações')
-%ylabel('Valor da função objetivo')
+% fprintf('\n')
+% 
+% figure
+% plot(0:size(memoryfile,1)-1,memoryfile(:,end),'k-','linewidth',2)
+% xlabel('Número de iterações')
+% ylabel('Valor da função objetivo')
