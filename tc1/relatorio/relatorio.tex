@@ -195,7 +195,7 @@ sujeito a
 
 \[1 \le r \le \infty \]
 
-Em que $w_1$ e $w_2$ são pesos que caracterizam a preferência do decisor, $f_1(x)$ é a função objetivo do problema do \emph{Tempo Total de entrega}, $f_2(x)$ é a função objetivo do problema da \emph{Soma Ponderada dos Atrasos e Adiantamentos}, $r$ é um parâmetro variável que define se será feita a minimização da soma dos desvios ou do máximo desvio e $f_{1}^*$ e $f_{2}^{*}$ são parâmetros que o decisor define como serem valores aceitáveis das funções objetivos. No caso do problema a ser resolvido, $f_1^*$ define o tempo total de entrega aceitável e $f_2^*$ define a soma ponderada dos atrasos e adiantamentos aceitável.
+Em que $w_1$ e $w_2$ são pesos que caracterizam a preferência do decisor, $f_1(x)$ é a função objetivo do problema do \emph{Tempo Total de entrega}, $f_2(x)$ é a função objetivo do problema da \emph{Soma Ponderada dos Atrasos e Adiantamentos}, $r$ é um parâmetro variável que define se será feita a minimização da soma dos desvios ou do máximo desvio e $f_{1}^*$ e $f_{2}^{*}$ são parâmetros que o decisor define como sendo valores aceitáveis das funções objetivos. No caso do problema a ser resolvido, $f_1^*$ define o tempo total de entrega aceitável e $f_2^*$ define a soma ponderada dos atrasos e adiantamentos aceitável.
 
 A função da \emph{Programação de Compromisso} também pode ser resolvida por qualquer método de otimização não linear e para resolução dela foi utilizado o algoritmo baseado no \emph{Simulated Annealing}. Também foram utilizados os métodos de geração de solução inicial e de vizinhança do método da \emph{Soma dos atrasos e adiantamentos}.
 
@@ -204,7 +204,7 @@ O algoritmo gera uma solução inicial e repete o método SA para encontrar o co
 \subsection{Resultados:}
 Nesta sessão serão apresentados os resultados dos algoritmos.
 \subsubsection{Minimização do Tempo Total de Entrega}
-Como já mencionado, o algoritmo de otimização foi baseados no \textit{Simulated Annealing}. Esta abordagem exige o ajuste de alguns parâmetros, dentre eles o multiplicador $\alpha$ de temperatura, que é um valor entre $0$ e $1$, que vai diminuir gradualmente a temperatura do algoritmo, e consequentemente diminuir a probabilidade de se aceitar um movimento de piora na busca pela melhor solução. Outro parâmetro que deve ser ajustado é a quantidade $n$ de tarefas que terão a máquina aleatoriamente trocada, na primeira função de vizinhança. Os dados para execução do problema foram disponibilizados pelo professor, são carregados pelo arquivo \texttt{i5x25.mat} e podem ser vistos na tabela da Figura \ref{fig:tabela-dados}.
+Como já mencionado, o algoritmo de otimização foi baseado no \textit{Simulated Annealing}. Esta abordagem exige o ajuste de alguns parâmetros, dentre eles, o multiplicador $\alpha$ de temperatura, que é um valor entre $0$ e $1$, que vai diminuir gradualmente a temperatura do algoritmo: probabilidade de se aceitar um movimento de piora na busca pela melhor solução. Outro parâmetro que deve ser ajustado é a quantidade $n$ de tarefas que terão a máquina aleatoriamente trocada, na primeira função de vizinhança. Os dados para execução do problema foram disponibilizados pelo professor, são carregados pelo arquivo \texttt{i5x25.mat} e podem ser vistos na tabela da Figura \ref{fig:tabela-dados}.
 
 	\begin{figure}[h]
 		\centering
@@ -213,7 +213,7 @@ Como já mencionado, o algoritmo de otimização foi baseados no \textit{Simulat
 		\label{fig:tabela-dados}
 	\end{figure}
 
-Para demonstrar os efeitos da temperatura (parâmetro $\alpha$), uma primeira instancia foi executada, utilizando como parâmetros $\alpha = 0.5$ e $n = 3$. A Figura \ref{fig:result-1} mostra um primeiro resultado desta execução, plotando a avaliação da solução aceita por cada iteração. Como se pode notar, no início do algoritmo, muitas soluções de piora são aceitas, e aos poucos são aceitos cada vez mais apenas movimentos de melhora. Esta execução passou por 2141 iterações e a melhor solução encontrada possui avaliação na função objetivo igual a 20.
+Para demonstrar os efeitos da temperatura (parâmetro $\alpha$), uma primeira instancia foi executada, utilizando como parâmetros $\alpha = 0.5$ e $n = 3$. A Figura \ref{fig:result-1} mostra um primeiro resultado desta execução, plotando a avaliação da solução aceita por cada iteração. Como se pode notar, no início do algoritmo, muitas soluções de piora são aceitas, e aos poucos são aceitos, cada vez mais, apenas movimentos de melhora. Esta execução passou por 2141 iterações e a melhor solução encontrada possui avaliação na função objetivo igual a 20.
 
 	\begin{figure}[h]
 		\centering
@@ -244,7 +244,7 @@ Foi experimentado também a execução do algoritmo com $\alpha = 0.1$ e $\alpha
 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=8cm]{img/mult-result-2.png}
+		\includegraphics[width=7cm]{img/mult-result-2.png}
 		\caption{100 execuções com $\alpha = 0.1$ e $n = 3$.}
 		\label{fig:mult-result-2}
 	\end{figure}
@@ -255,7 +255,7 @@ Foi experimentado também a execução do algoritmo com $\alpha = 0.1$ e $\alpha
 		\caption{100 execuções com $\alpha = 0.01$ e $n = 3$.}
 		\label{fig:mult-result-3}
 	\end{figure}
-	
+	\newpage
 Como todos estes resultados foram obtidos executando o algoritmo com a primeira forma de vizinhança (\textit{neighbor1TE}), precisamos também decidir um valor para $n$. Mantendo $\alpha = 0.1$, \texttt{multirunTE.m} foi executado para $n = 5$ e $n = 1$. Os resultados podem ser vistos nas Figuras \ref{fig:mult-result-4} e \ref{fig:mult-result-5}, respectivamente. Para o primeiro caso, a média do valor ótimo foi $18,29$ (com mínimo em $15$ e máximo em $22$) e a média da quantidade de iterações foi $2059$ (com mínimo em $2044$ e máximo em $2085$). Para o segundo caso, a média do valor ótimo foi $14,77$ (com mínimo em $12$ e máximo em $20$) e a média da quantidade de iterações foi $2260,8$ (com mínimo em $2003$ e máximo em $2622$). Escolhemos então manter $n = 1$.
 
 	\begin{figure}[h]
@@ -271,8 +271,8 @@ Como todos estes resultados foram obtidos executando o algoritmo com a primeira 
 		\caption{100 execuções com $\alpha = 0.1$ e $n = 1$.}
 		\label{fig:mult-result-5}
 	\end{figure}
-	
-Todos os resultados vistos até aqui foram com o algoritmo rodando apenas com a função de vizinhança \textit{neighbor1TE}. Agora será incorporado ao algoritmo a função \textit{neighbor2TE} seguidamente à primeira, de forma que os dois processos de vizinhança serão executados, um seguido do outro, para se alcançar maior região de busca. Com o auxilio do \texttt{multirunTE.m}, o código foi mais uma vez executado 100 vezes com $\alpha = 0.1$ e $n = 1$, e os resultados podem ser vistos na Figura \ref{fig:mult-result-6}. A média do valor ótimo foi $14,12$ (com mínimo em $12$ e máximo em $16$) e a média da quantidade de iterações foi $2356,5$ (com mínimo em $2043$ e máximo em $2568$). O desempenho foi perceptivelmente melhorado, já que uma maior região de busca é considerada, e melhores ótimos locais são alcançados.
+	\newpage
+Todos os resultados vistos até aqui foram com o algoritmo rodando apenas com a função de vizinhança \textit{neighbor1TE}. Agora será incorporado ao algoritmo a função \textit{neighbor2TE} de forma que os dois processos de vizinhança serão executados, um seguido do outro, para se alcançar maior região de busca. Com o auxilio do \texttt{multirunTE.m}, o código foi mais uma vez executado 100 vezes com $\alpha = 0.1$ e $n = 1$, e os resultados podem ser vistos na Figura \ref{fig:mult-result-6}. A média do valor ótimo foi $14,12$ (com mínimo em $12$ e máximo em $16$) e a média da quantidade de iterações foi $2356,5$ (com mínimo em $2043$ e máximo em $2568$). O desempenho foi perceptivelmente melhorado, já que uma maior região de busca é considerada, e melhores ótimos locais são alcançados.
 
 	\begin{figure}[h]
 		\centering
@@ -290,7 +290,7 @@ Com todos os ajustes feitos, o algoritmo foi executado mais 5 vezes, e o resulta
 		\label{fig:mult-result-7}
 	\end{figure}
 	
-	\begin{table}
+	\begin{table}[h]
 		\centering
 		\begin{tabular}{ | l | l | l | l |}
 			\hline
@@ -306,7 +306,7 @@ Com todos os ajustes feitos, o algoritmo foi executado mais 5 vezes, e o resulta
 	\end{table}
 	
 \subsubsection{Minimização da Soma Ponderada dos Atrasos e Adiantamentos}
-Para este problema também é necessário fazer o ajuste do parâmetro de temperatura $\alpha$, que o parâmetro de multiplicação do decaimento da temperatura, como já mencionado. Para ilustrar o efeito deste parâmetro no problema, executou-se uma vez com $\alpha = 0.9$. Vendo na Figura \ref{fig:result-spa-1}, é possível notar que as iterações iniciais do algoritmo permitem muitos movimentos de piora. Agora se o algoritmo for executado com $\alpha = 0.1$, como pode ser visto na Figura \ref{fig:result-spa-2}, uma menor quantidade de movimentos de piora é aceito, já que a temperatura decaí mais rapidamente.
+Para este problema também é necessário fazer o ajuste do parâmetro de temperatura $\alpha$, que é o parâmetro de multiplicação do decaimento da temperatura, como já mencionado. Para ilustrar o efeito deste parâmetro no problema, executou-se uma vez com $\alpha = 0.9$. Vendo na Figura \ref{fig:result-spa-1}, é possível notar que as iterações iniciais do algoritmo permitem muitos movimentos de piora. Agora, se o algoritmo for executado com $\alpha = 0.1$, como pode ser visto na Figura \ref{fig:result-spa-2}, uma menor quantidade de movimentos de piora é aceito, já que a temperatura decai mais rapidamente.
 
 	\begin{figure}[h]
 		\centering
@@ -321,7 +321,7 @@ Para este problema também é necessário fazer o ajuste do parâmetro de temper
 		\caption{Primeiro resultado para execução com $\alpha = 0.1$.}
 		\label{fig:result-spa-2}
 	\end{figure}
-	
+	\newpage
 Agora para escolher um ajuste de $\alpha$, o algoritmo de otimização do problema foi executado 100 vezes, com auxilio do script \texttt{multirunSPA.m} com $\alpha = 0.1$. O resultado das 100 execuções pode ser visto na Figura \ref{fig:mult-result-spa-1}. A média do valor ótimo foi $580,2$ (com mínimo em $321$ e máximo em $1095$) e a média da quantidade de iterações foi $1893$ (com mínimo em $1397$ e máximo em $2113$).
 
 	\begin{figure}[h]
@@ -330,7 +330,7 @@ Agora para escolher um ajuste de $\alpha$, o algoritmo de otimização do proble
 		\caption{100 execuções com $\alpha = 0.1$.}
 		\label{fig:mult-result-spa-1}
 	\end{figure}
-	
+	\newpage
 Mais uma vez 100 execuções foram feitas, mas com $\alpha = 0.0001$. A Figura \ref{fig:mult-result-spa-2} ilustra os resultados. A média do valor ótimo foi $581,45$ (com mínimo em $357$ e máximo em $1068$) e a média da quantidade de iterações foi $1941,2$ (com mínimo em $1517$ e máximo em $2116$).
 
 	\begin{figure}[h]
@@ -348,7 +348,7 @@ Por último, 100 execuções foram feitas com $\alpha = 0.9$. A Figura \ref{fig:
 		\caption{100 execuções com $\alpha = 0.9$.}
 		\label{fig:mult-result-spa-3}
 	\end{figure}
-	
+	\newpage
 Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, e o resultado sumarizado pode ser visto na Figura \ref{fig:mult-result-spa-4}. Os resultados numéricos são apresentados na Tabela 2.
 
 	\begin{figure}[h]
@@ -358,7 +358,7 @@ Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, 
 		\label{fig:mult-result-spa-4}
 	\end{figure}
 	
-	\begin{table}
+	\begin{table}[h]
 		\centering
 		\begin{tabular}{ | l | l | l | l |}
 			\hline
@@ -372,103 +372,18 @@ Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, 
 		\label{table:result2}
 		\caption{Resultados numéricos - Minimização da Soma Ponderada dos Atrasos e Adiantamentos.}
 	\end{table}
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class option
-% should be used if it is desired that the figures are to be displayed while
-% in draft mode.
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex
-%\caption{Simulation Results}
-%\label{fig_sim}
-%\end{figure}
-
-
-% An example of a double column floating figure using two subfigures.
-%(The subfigure.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfigure command, the
-% \label for the overall fgure must come after \caption.
-% \hfil must be used as a separator to get equal spacing
-%
-%\begin{figure*}
-%\centerline{\subfigure[Case I]{\includegraphics[width=2.5in]{subfigcase1}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex
-%\label{fig_first_case}}
-%\hfil
-%\subfigure[Case II]{\includegraphics[width=2.5in]{subfigcase2}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex
-%\label{fig_second_case}}}
-%\caption{Simulation results}
-%\label{fig_sim}
-%\end{figure*}
-
-
-
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-%\caption{An Example of a Table}
-%\label{table_example}
-%\begin{center}
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{center}
-%\end{table}
-
 
 \section{Conclusão}
 Os métodos de otimização desenvolvidos neste trabalho foram sobretudo baseados no Simulated Annealing, que é um método de otimização não exato, contudo de fácil implementação e de desempenho satisfatório. É notável no decorrer do presente relatório que existem variações nas soluções encontradas. O Simulated Annealing é um ótimo método de estimação
 de bons ótimos locais, no entanto ele não garante o ótimo global. Levando tudo isto em consideração, conclui-se que os resultados obtidos foram satisfatórios, considerando-se o desempenho e a qualidade das soluções encontradas.
 
-% conference papers do not normally have an appendix
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-% NOTE: BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% standard IEEE bibliography style from:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/bibtex
-%\bibliographystyle{IEEEtran.bst}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
 \begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to {\LaTeX}}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{notas de aula}
+Notas de aula do professor Lucas Batista da disciplina \emph{ELE088 Teoria da Decisão}. 2017.
+
+\bibitem{livro}
+ARENALES, Marcos et al. Pesquisa operacional: para cursos de engenharia. Rio de Janeiro: Elsevier, 2007
 
 \end{thebibliography}
 
