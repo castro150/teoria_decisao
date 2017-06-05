@@ -383,6 +383,21 @@ Para a execução do algoritmo da Soma Ponderada, presente no arquivo \texttt{so
 		\label{fig:result-sp}
 	\end{figure}
 
+
+\subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
+Assim como nos algoritmos anteriores, o algoritmo implementado para a solução utilizando a técnica do \emph{$\epsilon$-restrito} precisa do parâmetro do decaimento de temperatura. A partir das execuções dos algoritmos anteriores e de testes feitos durante a implementação, concluiu-se que o melhor valor seria $\alpha = 0.1$
+
+Utilizando esse valor de $\alpha$, o script \texttt{epsilonRestrito.m} foi executado e o resultado pode ser visto a seguir.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{img/result-e.png}
+	\caption{Soluções pareto-ótimas obtidas através do $\epsilon$-restrito}
+	\label{fig:result-e}
+\end{figure}
+
+A partir do gráfico da figura \ref{fig:result-e} é possível verificar que a maior parte das soluções se concentrou em torno dos valores 18 e 19 para $f_1$ (tempo total de entrega) e 500 para $f_2$ (soma ponderada dos atrasos e adiantamentos). Esse resultado pode ser explicado pelo fato de terem sido utilizados valores de peso aleatórios, com distribuição normal, o que faz com que as soluções fiquem concentradas no centro da região das soluções pareto-ótimas. Ainda sim, foi obtida uma solução com valor 14 para $f_1$ e em torno de 400 para $f_2$, o que pode ser considerado um bom resultado.	
+
 \section{Conclusão}
 Os métodos de otimização desenvolvidos neste trabalho foram sobretudo baseados no Simulated Annealing, que é um método de otimização não exato, contudo de fácil implementação e de desempenho satisfatório. É notável no decorrer do presente relatório que existem variações nas soluções encontradas. O Simulated Annealing é um ótimo método de estimação
 de bons ótimos locais, no entanto ele não garante o ótimo global. Levando tudo isto em consideração, conclui-se que os resultados obtidos foram satisfatórios, considerando-se o desempenho e a qualidade das soluções encontradas.
