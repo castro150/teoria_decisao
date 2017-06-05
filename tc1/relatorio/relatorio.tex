@@ -372,6 +372,16 @@ Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, 
 		\label{table:result2}
 		\caption{Resultados numéricos - Minimização da Soma Ponderada dos Atrasos e Adiantamentos.}
 	\end{table}
+	
+\subsubsection{Otimização multiobjetivo - Soma ponderada}
+Para a execução do algoritmo da Soma Ponderada, presente no arquivo \texttt{somaPonderada.m}, é preciso definir também o valor do parâmetro $\alpha$. Com o histórico das execuções feitas até aqui, e por este ser um algoritmo baseado nos outros, de mesma estrutura e representações, foi decidido usar $\alpha = 0,1$. Com 100 execuções, variando-se os pesos das funções para se obter as soluções pareto-ótimas, obtém-se o resultado ilustrado na Figura \ref{fig:result-sp}. Como se pode notar, as soluções ficaram concentradas no meio do gráfico. Inclusive foi encontrado um ótimo com $f1 = 14$ e $f2$ a baixo de $400$.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8cm]{img/result-sp.png}
+		\caption{Resultado da execução da soma ponderada com $\alpha = 0.1$.}
+		\label{fig:result-sp}
+	\end{figure}
 
 \section{Conclusão}
 Os métodos de otimização desenvolvidos neste trabalho foram sobretudo baseados no Simulated Annealing, que é um método de otimização não exato, contudo de fácil implementação e de desempenho satisfatório. É notável no decorrer do presente relatório que existem variações nas soluções encontradas. O Simulated Annealing é um ótimo método de estimação
