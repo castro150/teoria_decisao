@@ -374,7 +374,7 @@ Com as decisões de parâmetros tomada, o algoritmo foi executado mais 5 vezes, 
 	\end{table}
 	
 \subsubsection{Otimização multiobjetivo - Soma ponderada}
-Para a execução do algoritmo da Soma Ponderada, presente no arquivo \texttt{somaPonderada.m}, é preciso definir também o valor do parâmetro $\alpha$. Com o histórico das execuções feitas até aqui, e por este ser um algoritmo baseado nos outros, de mesma estrutura e representações, foi decidido usar $\alpha = 0,1$. Com 100 execuções, variando-se os pesos das funções para se obter as soluções pareto-ótimas, obtém-se o resultado ilustrado na Figura \ref{fig:result-sp}. Como se pode notar, as soluções ficaram concentradas no meio do gráfico. Inclusive foi encontrado um ótimo com $f1 = 14$ e $f2$ a baixo de $400$.
+Para a execução do algoritmo da Soma Ponderada, presente no arquivo \texttt{somaPonderada.m}, é preciso definir também o valor do parâmetro $\alpha$. Com o histórico das execuções feitas até aqui, e por este ser um algoritmo baseado nos outros, de mesma estrutura e representações, foi decidido usar $\alpha = 0,1$. Conforme dito anteriormente, o script faz a execução do método SA, 100 vezes, variando-se os pesos das funções para se obter as soluções pareto-ótimas. Assim, ele foi executado foi obtido o resultado ilustrado na Figura \ref{fig:result-sp}. Como se pode notar, as soluções ficaram concentradas no meio do gráfico, o que pode ser explicado pelo fato de terem sido usados valores de pesos aleatórios, com distribuição normal. Inclusive foi encontrado um ótimo com $f_1 = 14$ (\emph{Tempo total de entrega}) e $f_2$ (\emph{Soma ponderada dos atrasos e adiantamentos}) abaixo de $400$.
 
 	\begin{figure}[h]
 		\centering
@@ -385,18 +385,31 @@ Para a execução do algoritmo da Soma Ponderada, presente no arquivo \texttt{so
 
 
 \subsubsection{Otimização multiobjetivo - $\epsilon$-restrito}
-Assim como nos algoritmos anteriores, o algoritmo implementado para a solução utilizando a técnica do \emph{$\epsilon$-restrito} precisa do parâmetro do decaimento de temperatura. A partir das execuções dos algoritmos anteriores e de testes feitos durante a implementação, concluiu-se que o melhor valor seria $\alpha = 0.1$
+Assim como nos algoritmos anteriores, o algoritmo implementado, utilizando a técnica do \emph{$\epsilon$-restrito}, para obter a solução do problema, precisa do parâmetro $\alpha$ do decaimento de temperatura. A partir das execuções dos algoritmos anteriores e de testes feitos durante a implementação, concluiu-se que o melhor valor seria $\alpha = 0.1$
 
 Utilizando esse valor de $\alpha$, o script \texttt{epsilonRestrito.m} foi executado e o resultado pode ser visto a seguir.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=8cm]{img/result-e.png}
+	\includegraphics[width=7cm]{img/result-e.png}
 	\caption{Soluções pareto-ótimas obtidas através do $\epsilon$-restrito}
 	\label{fig:result-e}
 \end{figure}
+\newpage
+A partir do gráfico da figura \ref{fig:result-e} é possível verificar que a maior parte das 100 soluções se concentrou em torno dos valores 18 e 19 para $f_1$ (tempo total de entrega) e 500 para $f_2$ (soma ponderada dos atrasos e adiantamentos). Esse resultado pode ser explicado pelo fato de terem sido utilizados valores de $\epsilon$ aleatórios, com distribuição normal, o que faz com que as soluções fiquem concentradas no centro da região das soluções pareto-ótimas. Ainda sim, foi obtida uma solução com valor 14 para $f_1$ e em torno de 400 para $f_2$, o que pode ser considerado um bom resultado.	
 
-A partir do gráfico da figura \ref{fig:result-e} é possível verificar que a maior parte das soluções se concentrou em torno dos valores 18 e 19 para $f_1$ (tempo total de entrega) e 500 para $f_2$ (soma ponderada dos atrasos e adiantamentos). Esse resultado pode ser explicado pelo fato de terem sido utilizados valores de peso aleatórios, com distribuição normal, o que faz com que as soluções fiquem concentradas no centro da região das soluções pareto-ótimas. Ainda sim, foi obtida uma solução com valor 14 para $f_1$ e em torno de 400 para $f_2$, o que pode ser considerado um bom resultado.	
+\subsubsection{Programação de Compromisso}
+
+O teste do algoritmo da programação de compromisso é muito similar aos das implementações de problemas multiobjetivo anteriores. Também foi utilizado o parâmetro $\alpha = 0.1$ e o resultado pode ser visto a seguir.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=7cm]{img/result-pc.png}
+	\caption{Soluções obtidas através da programação de compromisso}
+	\label{fig:result-pc}
+\end{figure}
+
+A partir da figura \ref{fig:result-pc} é possível visualizar que as soluções ficaram mais concentradas próximas dos valores 14 para $f_1$ e 400 para $f_2$. Isso de deve ao fato de esses serem parâmetros definidos como aceitáveis para as funções objetivo. É possível concluir então que o resultado está dentro do esperado.
 
 \section{Conclusão}
 Os métodos de otimização desenvolvidos neste trabalho foram sobretudo baseados no Simulated Annealing, que é um método de otimização não exato, contudo de fácil implementação e de desempenho satisfatório. É notável no decorrer do presente relatório que existem variações nas soluções encontradas. O Simulated Annealing é um ótimo método de estimação
