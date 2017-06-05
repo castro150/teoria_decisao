@@ -17,7 +17,7 @@ jxbest = zeros(1, n);
 nfe = zeros(1, n);
 
 for i = 1:n
-    [xbest(:, :, i), jxbest(i), nfe(i)] = minAtrasoAdiantamento(0.01);
+    [xbest(:, :, i), jxbest(i), nfe(i)] = minAtrasoAdiantamento(0.9);
     fprintf('#%d\n', i);
 end
 
