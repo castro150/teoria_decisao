@@ -1,1 +1,5 @@
-Nesta seção serão discutidos e exibidos os algoritmos para solução dos problemas mono e multiobjetivo.
+Nesta seção serão discutidos e exibidos os algoritmos para solução do problema multiobjetivo.
+
+Olhando para a equação \ref{sum_biobj} é possível perceber que, minimizando o custo de cada equipamento, minimiza-se também o somatório dos custos. Assim, para resolução do problema biobjetivo foi utilizada uma estratégia gulosa. Nela, para cada equipamento, é feito um teste com cada um dos planos de manutenção e é escolhido aquele que gera menor custo. Têm-se então, um algoritmo cuja complexidade é O($n\cdot m$) em que $n$ é o número de equipamentos e $m$ é o número de planos de manutenção. No caso do problema a ser resolvido no trabalho, para cada par de pesos escolhido (encontrar solução da fronteira Pareto), são feitas 1500 avaliações da função objetivo.
+
+O algoritmo que utiliza a estratégia gulosa para resolver a função objetivo pode ser encontrado no arquivo \texttt{Guloso.m} e o algoritmo que implementa a \emph{Soma Ponderada} variando os pesos da função objetivo pode ser encontrado no arquivo \texttt{SomaPonderada.m}, ambos no mesmo diretório deste relatório.
