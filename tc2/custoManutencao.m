@@ -14,8 +14,8 @@
 %   custoTotal: custo total para o plano de manutenção escolhido
 % =========================================================================
 
-function custoTotal = custoManutencao(planoManutencao, custoManutencao)
+function custoTotalManutencao = custoManutencao(planoManutencao, custoManutencao)
     custoPorMaquina = custoManutencao(planoManutencao);
-    custoTotal =  sum(custoPorMaquina);
+    custoTotalManutencao =  sum(custoPorMaquina);
 end
 

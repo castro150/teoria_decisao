@@ -15,34 +15,14 @@
 % plano de manutencao dos equipamentos.
 % =========================================================================
 
-function [xBest, fBest, X, Pareto] = Guloso()
-MPDBCSV = 'MPDB.csv';
-EquipDBCSV = 'EquipDB.csv';
-ClusterDBCSV = 'ClusterDB.csv';
-
-% Carrega valores parametros
-horizonte_tempo = 5;
-
-T = csvread(MPDBCSV);
-custo_manutencao = T(:,3)';
-fator_risco = T(:,2)';
-
-T = csvread(EquipDBCSV);
-t0 = T(:,2)';
-cluster = T(:,3)';
-custo_falha = T(:,4)';
-
-T = csvread(ClusterDBCSV);
-eta = T(:,2)';
-beta = T(:,3)';
-
-nSolucoes = 1000;
+function [xBest, fBest, X, Pareto] = Guloso(custo_manutencao, fator_risco, horizonte_tempo, t0, cluster, custo_falha, eta, beta)
+nSolucoes = 2;
 
 w1 = 0:1/nSolucoes:1;
 w2 = 1:-1/nSolucoes:0;
 X = zeros(nSolucoes,500);
 Pareto = zeros(nSolucoes, 2);
-for i = 1:length(w1)
+for i = 1:nSolucoes
     if(i == 1 || mod(i,(nSolucoes/10)) == 0)
         fprintf('Calculando #%d solucao pareto-otima\n', i);
     end
@@ -74,10 +54,8 @@ for i = 1:length(w1)
     Pareto(i,:) = [sum_f1  sum_f2]';
     X(i,:) = x;
     
-    if(i == 1 || x < xBest)
-        xBest = x;
-    end
     if(i == 1 || (sum_f1 + sum_f2) < fBest)
+        xBest = x;
         fBest = sum_f1 + sum_f2;
     end
 end
