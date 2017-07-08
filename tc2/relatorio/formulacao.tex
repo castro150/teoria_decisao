@@ -1,10 +1,10 @@
 A formulação do problema foi dividida em duas partes, como é discutido a seguir:
 
 \subsubsection{Minimização do custo de manutenção total} Em primeiro
-momento, é preciso construir uma função objetivo e suas eventuais restrições para minimização do custo de manutenção total. Considerando $C_i(x_i)$ como o custo de manutenção do equipamento $i$ em função do plano de manutenção $x_i$, têm-se a seguinte formulação:
+momento, é preciso construir uma função objetivo e suas eventuais restrições para minimização do custo de manutenção total. Considerando $C_{m_i}(x_i)$ como o custo de manutenção do equipamento $i$ em função do plano de manutenção $x_i$, têm-se a seguinte formulação:
 
 \begin{equation}
-\mathrm{min}\ \sum_{i=1,}^{n} C_i (x_i) 
+\mathrm{min}\ \sum_{i=1,}^{n} C_{m_i} (x_i) 
 \label{sum_cm}
 \end{equation}
 
@@ -14,9 +14,52 @@ x_i \in \mathcal{X}\ \forall i\ \in 1, ..., n
 \label{rest1_cm}
 \end{equation}
 \begin{equation}
-C_i \in \mathcal{C}_{1}\ \forall i\ \in 1, ..., n
+C_{m_i} \in \mathcal{C}_{m}\ \forall i\ \in 1, ..., n
 \label{rest2_cm}
 \end{equation}
-Em que $n$ é o número de equipamentos que, no caso do problema a ser resolvido, é igual a 500. A equação \ref{sum_cm} representa o custo de manutenção total que é o somatório dos custos de manutenção de cada equipamento $i$. A restrição \ref{rest1_cm} indica que cada equipamento $i$ pode ter um plano de manutenção $x_i$ que esteja dentro do conjunto $\mathcal{X}$ de planos pré-definidos, no caso do problema, $\mathcal{X} = \{1,2,3\}$. A restrição \ref{rest2_cm} indica que o custo de manutenção de cada equipamento também deve estar dentro de um conjunto pré-definido $\mathcal{C}_{1}$ que depende do plano de manutenção.
+Em que $n$ é o número de equipamentos que, no caso do problema a ser resolvido, é igual a 500. A equação \ref{sum_cm} representa o custo de manutenção total que é o somatório dos custos de manutenção de cada equipamento $i$. A restrição \ref{rest1_cm} indica que cada equipamento $i$ pode ter um plano de manutenção $x_i$ que esteja dentro do conjunto $\mathcal{X}$ de planos pré-definidos, no caso do problema, $\mathcal{X} = \{1,2,3\}$. A restrição \ref{rest2_cm} indica que o custo de manutenção de cada equipamento também deve estar dentro de um conjunto pré-definido $\mathcal{C}_{m}$ que depende do plano de manutenção.
 
-\subsubsection{Minimização do custo esperado de falha total} Agora, uma função objetivo para tratar a minimização do custo esperado de falha total é formulada.
+\subsubsection{Minimização do custo esperado de falha total} Agora, uma função objetivo para tratar a minimização do custo esperado de falha total é formulada. Considerando $C_{f_i}(x_i)$ como o custo de falha do equipamento $i$ em função do plano de manutenção $x_i$, têm-se a seguinte formulação:
+
+\begin{equation}
+C_{f_i} = p_{i,x_i} \cdot c_{f_i}
+\label{cf}
+\end{equation}
+
+Onde $p_{i,x_i}$ é a probabilidade de falha de um equipamento $i$, sob o plano de manutenção $x_i$, até um dado horizonte de planejamento da manutenção $\Delta t$. Ela é estimada pela equação \ref{pf} que determina a probabilidade de falha de um equipamento até $\Delta t$ dado que ele não falhou até a data atual ($t_0$). No caso do problema, será utilizado $\Delta t = 500$.
+
+\begin{equation}
+p_{i,x_i} = \frac{F_i(t_0 + x_i\Delta t) - F_i(t_0)}{1 - F_i(t_0)}
+\label{pf}
+\end{equation}
+
+Em que:
+
+\begin{equation}
+F_i(t) = 1 - \exp{\left[ -{ \left( \frac{t}{\eta_i} \right) }^{\beta_i} \right]}
+\end{equation}
+
+Os parâmetros $\eta$, $\beta$ dependem também do plano de manutenção $i$ e são dados. Com isso, têm-se o seguinte modelo:
+
+\begin{equation}
+\mathrm{min}\ \sum_{i=1,}^{n} C_{f_i} (x_i) 
+\label{sum_cf}
+\end{equation}
+
+sujeito a:
+\begin{equation}
+x_i \in \mathcal{X}\ \forall i\ \in 1, ..., n
+\label{rest1_cf}
+\end{equation}
+\begin{equation}
+C_{f_i} \in \mathcal{C}_{f}\ \forall i\ \in 1, ..., n
+\label{rest2_cf}
+\end{equation}
+\begin{equation}
+\beta_{i} \in \mathcal{B}\ \forall i\ \in 1, ..., n
+\label{rest3_cf}
+\end{equation}
+\begin{equation}
+\eta_{i} \in \mathcal{N}\ \forall i\ \in 1, ..., n
+\label{rest4_cf}
+\end{equation}
