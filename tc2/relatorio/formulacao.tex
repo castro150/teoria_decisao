@@ -1,1 +1,22 @@
 A formulação do problema foi dividida em duas partes, como é discutido a seguir:
+
+\subsubsection{Minimização do custo de manutenção total} Em primeiro
+momento, é preciso construir uma função objetivo e suas eventuais restrições para minimização do custo de manutenção total. Considerando $C_i(x_i)$ como o custo de manutenção do equipamento $i$ em função do plano de manutenção $x_i$, têm-se a seguinte formulação:
+
+\begin{equation}
+\mathrm{min}\ \sum_{i=1,}^{n} C_i (x_i) 
+\label{sum_cm}
+\end{equation}
+
+sujeito a:
+\begin{equation}
+x_i \in \mathcal{X}\ \forall i\ \in 1, ..., n
+\label{rest1_cm}
+\end{equation}
+\begin{equation}
+C_i \in \mathcal{C}\ \forall i\ \in 1, ..., n
+\label{rest2_cm}
+\end{equation}
+Em que $n$ é o número de equipamentos que, no caso do problema a ser resolvido, é igual a 500. A equação \ref{sum_cm} representa o custo de manutenção total que é o somatório dos custos de manutenção de cada equipamento $i$. A restrição \ref{rest1_cm} indica que cada equipamento $i$ pode ter um plano de manutenção $x_i$ que esteja dentro do conjunto $\mathcal{X}$ de planos pré-definidos, no caso do problema, $\mathcal{X} = \{1,2,3\}$. A restrição \ref{rest2_cm} indica que o custo de manutenção de cada equipamento também deve estar dentro de um conjunto pré-definido $\mathcal{C}$ que depende do plano de manutenção.
+
+\subsubsection{Minimização do custo esperado de falha total}
