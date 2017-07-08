@@ -16,7 +16,7 @@
 % =========================================================================
 
 function [xBest, fBest, X, Pareto] = Guloso(custo_manutencao, fator_risco, horizonte_tempo, t0, cluster, custo_falha, eta, beta)
-nSolucoes = 10;
+nSolucoes = 100;
 
 w1 = 0:1/nSolucoes:1;
 w2 = 1:-1/nSolucoes:0;
