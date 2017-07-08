@@ -1,34 +1,43 @@
-function [] = ElectreII(planos)
-
-% Passar para o main:
-% Soluções[200, 500]
-
-MPDBCSV = 'MPDB.csv';
-EquipDBCSV = 'EquipDB.csv';
-ClusterDBCSV = 'ClusterDB.csv';
-ExResult = 'ExResult.csv';
-
-% Carrega valores parametros
-horizonte_tempo = 5;
-
-T = csvread(MPDBCSV);
-custo_manutencao = T(:,3)';
-fator_risco = T(:,2)';
-
-T = csvread(EquipDBCSV);
-t0 = T(:,2)';
-cluster = T(:,3)';
-custo_falha = T(:,4)';
-
-T = csvread(ClusterDBCSV);
-eta = T(:,2)';
-beta = T(:,3)';
-
-planos = csvread(ExResult); 
-
-[n, m] = size(planos);
-planos = zeros(200, 2);
+function [] = ElectreII(G, w)
+[na nc] = size(G);
 
 
+% Comparação entre as ações
+% (J+) = 1, (J=) = 0, (J-) = -1
+J = zeros(na, na, nc);
+
+for c = 1:nc
+    for a = 1:na
+       iJp = G(a, c) > G(:, c);
+       iJe = G(a, c) == G(:, c);
+       iJm = G(a, c) < G(:, c);
+
+       J(a, iJp, c) = 1;
+       J(a, iJe, c) = 0;
+       J(a, iJm, c) = -1;
+    end
 end
+% Cálculo dos coeficientes P
+Pp = zeros(na, na);
+Pe = zeros(na, na);
+Pm = zeros(na, na);
+
+iPp = J == 1;
+iPe = J == 0;
+iPm = J == -1;
+   
+for c = 1:nc
+   Pp = Pp + iPp(:, :, c) * w(c); 
+   Pe = Pe + iPe(:, :, c) * w(c); 
+   Pm = Pm + iPm(:, :, c) * w(c); 
+end
+
+for a = 1:na 
+    Pe(a, a) = 0;
+end
+
+% Cálculo dos coeficientes de concordância
+C = zeros(na, na);
+C = (Pp + Pe);
+
 

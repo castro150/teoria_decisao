@@ -30,7 +30,7 @@
 function custoFalhaEsperado = custoFalhaEsperado(planoManutencao, custoFalhaEquip, fatorRisco, horizonteTempo, t0, cluster, eta, beta)
     Ft = wblcdf(t0 + (horizonteTempo * fatorRisco(planoManutencao)), eta(cluster), beta(cluster));
     Ft0 = wblcdf(t0, eta(cluster), beta(cluster));
-    probFalha = (Ft - Ft0) / (1 - Ft0);
+    probFalha = rdivide((Ft - Ft0), (1 - Ft0));
     custoFalhaEsperado = probFalha * custoFalhaEquip(:);
 end
 

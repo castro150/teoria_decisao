@@ -20,11 +20,35 @@ beta = T(:,3)';
 
 % Otimização do custo de manutenção e de falha esperado
 [xBest, fBest, X, Pareto] = Guloso(custo_manutencao, fator_risco, horizonte_tempo, t0, cluster, custo_falha, eta, beta);
-csvwrite('Result.csv', X);
 
-for plano = transpose(X)
+% Avaliação dos critérios
+[n, m] = size(X);
+G = zeros(n, 2);
+
+for i = 1:n
+    plano = X(i, :);
+    
     custoPorMaquina = custo_manutencao(plano);
     custoTotalManutencao =  sum(custoPorMaquina);
-    custoTotalManutencao = custoManutencao(plano, custo_manutencao);
+    
+    Ft = wblcdf(t0 + (horizonte_tempo * fator_risco(plano)), eta(cluster), beta(cluster));
+    Ft0 = wblcdf(t0, eta(cluster), beta(cluster));
+    probFalha = (Ft - Ft0) ./ (1 - Ft0);
+    custoFalhaEsperado = probFalha * custo_falha(:);
+    
+    G(i, 1) = custoTotalManutencao;
+    G(i, 2) = custoFalhaEsperado;
 end
 
+% Ajustando a escala
+fatorEscala = max(G(:));
+G(:, 1) = fatorEscala * G(:, 1) / sum(G(:, 1));
+G(:, 2) = fatorEscala * G(:, 2) / sum(G(:, 2));
+G(:, 1) = G(:, 1) / sum(G(:, 1));
+G(:, 2) = G(:, 2) / sum(G(:, 2));
+
+w = [0.6 0.4];
+
+ElectreII(G, w);
+
+% csvwrite('Result.csv', );
