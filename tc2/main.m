@@ -19,7 +19,8 @@ eta = T(:,2)';
 beta = T(:,3)';
 
 % Otimização do custo de manutenção e de falha esperado
-[xBest, fBest, X, Pareto] = Guloso(custo_manutencao, fator_risco, horizonte_tempo, t0, cluster, custo_falha, eta, beta);
+[xBest, fBest, X, Pareto] = SomaPonderada(custo_manutencao, fator_risco,...
+    horizonte_tempo, t0, cluster, custo_falha, eta, beta);
 
 % Avaliação dos critérios
 [n, m] = size(X);
@@ -31,7 +32,8 @@ for i = 1:n
     custoPorMaquina = custo_manutencao(plano);
     custoTotalManutencao =  sum(custoPorMaquina);
     
-    Ft = wblcdf(t0 + (horizonte_tempo * fator_risco(plano)), eta(cluster), beta(cluster));
+    Ft = wblcdf(t0 + (horizonte_tempo * fator_risco(plano)), ...
+        eta(cluster), beta(cluster));
     Ft0 = wblcdf(t0, eta(cluster), beta(cluster));
     probFalha = (Ft - Ft0) ./ (1 - Ft0);
     custoFalhaEsperado = probFalha * custo_falha(:);
