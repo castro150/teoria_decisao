@@ -1,0 +1,91 @@
+\documentclass[conference]{IEEEtran}
+\hyphenation{op-tical net-works semi-conduc-tor IEEEtran}
+\usepackage[bottom=2cm,top=3cm,left=3cm,right=2cm]{geometry}
+\usepackage{url}
+\makeatletter
+\def\ps@pprintTitle{%
+	\let\@oddhead\@empty
+	\let\@evenhead\@empty
+	\def\@oddfoot{\reset@font\hfil\thepage\hfil}
+	\let\@evenfoot\@oddfoot
+}
+\makeatother
+
+\usepackage{babelbib}
+
+\usepackage[brazilian]{babel} % Traduz alguns termos para o português
+\usepackage[utf8]{inputenc} % Reconhece acentuação
+\usepackage{setspace}
+\usepackage{graphicx}
+
+
+\begin{document}
+
+% paper title
+\title{Teoria da Decisão\\Projeto Prático Assistido Por Otimização Multiobjetivo e Métodos de Auxílio à Tomada de Decisão}
+
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Rafael Carneiro de Castro}
+\IEEEauthorblockA{\\Eng. de Sistemas - UFMG\\
+Matrícula: 2013030210\\
+Email: rafaelcarneiroget@hotmail.com}
+\and
+\IEEEauthorblockN{Vinícius Felicíssimo Campos}
+\IEEEauthorblockA{\\Eng. de Controle e Automação - UFMG\\
+	Matrícula: 2015035235\\
+	Email: viniciusfc95@gmail.com}
+\and
+\IEEEauthorblockN{Davi Pinheiro Viana}
+\IEEEauthorblockA{\\Eng. de Sistemas - UFMG\\
+	Matrícula: 2013029912\\
+	Email: daviviana22@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+Abordagem de forma conjunta de grande parte dos conceitos vistos na disciplina "ELE088 - Teoria da Decisão", através de um problema relacionado ao gerenciamento ótimo da política de manutenção de um conjunto de equipamentos de uma empresa. O problema foi resolvido através de modelagem e implementação multiobjetivo e, para verificar a resolução do problema, é apresentado um indicador de qualidade. Além disso, foram utilizados alguns métodos de auxílio à tomada de decisão.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introdução}
+\input{introducao}
+
+\section{Desenvolvimento}
+\subsection{Formulação do Problema:}
+\input{formulacao}
+
+\subsection{Algoritmo de Solução:}
+\input{algoritmo}
+
+\subsection{Resultados:}
+\input{resultados}
+
+\subsection{Análise baseada no Hipervolume}
+\input{analise}
+
+\section{Tomada de Decisão Assistida}
+
+\section{Conclusão}
+Os métodos de otimização desenvolvidos neste trabalho foram sobretudo baseados no Simulated Annealing, que é um método de otimização não exato, contudo de fácil implementação e de desempenho satisfatório. É notável no decorrer do presente relatório que existem variações nas soluções encontradas. O Simulated Annealing é um ótimo método de estimação
+de bons ótimos locais, no entanto ele não garante o ótimo global. Levando tudo isto em consideração, conclui-se que os resultados obtidos foram satisfatórios, considerando-se o desempenho e a qualidade das soluções encontradas.
+
+\begin{thebibliography}{1}
+
+\bibitem{notas de aula}
+Notas de aula do professor Lucas Batista da disciplina \emph{ELE088 Teoria da Decisão}. 2017.
+
+\bibitem{livro}
+ARENALES, Marcos et al. Pesquisa operacional: para cursos de engenharia. Rio de Janeiro: Elsevier, 2007
+
+\end{thebibliography}
+
+
+% that's all folks
+\end{document}
+
+
