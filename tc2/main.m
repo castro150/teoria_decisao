@@ -26,8 +26,8 @@ plot(Pareto(:,1),Pareto(:,2),'ro');
 xlabel('Custo de Manutenção Total'), ylabel('Custo de Falha Total');
 title('Fronteira Pareto');
 
-csvwrite('CamposCastroViana.csv', X);
 X = unique(X, 'rows');
+csvwrite('CamposCastroViana.csv', X);
 
 % Avaliação dos critérios
 [n, m] = size(X);
