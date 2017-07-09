@@ -44,13 +44,14 @@ end
 
 % Ajustando a escala
 fatorEscala = max(G(:));
-G(:, 1) = fatorEscala * G(:, 1) / sum(G(:, 1));
-G(:, 2) = fatorEscala * G(:, 2) / sum(G(:, 2));
-G(:, 1) = G(:, 1) / sum(G(:, 1));
-G(:, 2) = G(:, 2) / sum(G(:, 2));
+normG(:, 1) = fatorEscala * G(:, 1) / sum(G(:, 1));
+normG(:, 2) = fatorEscala * G(:, 2) / sum(G(:, 2));
+normG(:, 1) = normG(:, 1) / sum(normG(:, 1));
+normG(:, 2) = normG(:, 2) / sum(normG(:, 2));
 
 w = [0.6 0.4];
 
-ElectreII(G, w);
+ElectreII(normG, w);
+AHP(X, G, w);
 
 % csvwrite('Result.csv', );
