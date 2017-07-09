@@ -2,7 +2,7 @@ clear all
 close all
 clc
 %=========================================================================
-CSVInput = 'Result.csv';
+CSVInput = 'CamposCastroViana.csv';
 %=========================================================================
 
 [HVI] = EvalParetoApp(CSVInput);
