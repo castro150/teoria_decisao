@@ -1,18 +1,18 @@
-function [xBest, fBest] = AHP(X, G, w)
+function [xBest, fBest] = AHP(X, custos, w)
 
 alternativas = zeros(5, 500);
-alternativas(1, :) = X(1, :);
-alternativas(2, :) = X(350, :);
-alternativas(3, :) = X(450, :);
-alternativas(4, :) = X(550, :);
-alternativas(5, :) = X(650, :);
+alternativas(1, :) = X(125, :);
+alternativas(2, :) = X(80, :);
+alternativas(3, :) = X(50, :);
+alternativas(4, :) = X(9, :);
+alternativas(5, :) = X(1, :);
 
 solucoes = zeros(5, 2);
-solucoes(1, :) = G(1, :);
-solucoes(2, :) = G(350, :);
-solucoes(3, :) = G(450, :);
-solucoes(4, :) = G(550, :);
-solucoes(5, :) = G(650, :);
+solucoes(1, :) = custos(125, :);
+solucoes(2, :) = custos(80, :);
+solucoes(3, :) = custos(50, :);
+solucoes(4, :) = custos(9, :);
+solucoes(5, :) = custos(1, :);
 
 criterio1 = csvread('AHPcriterio1.csv');
 criterio2 = csvread('AHPcriterio2.csv');
