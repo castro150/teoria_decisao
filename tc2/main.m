@@ -52,6 +52,6 @@ normG(:, 2) = normG(:, 2) / sum(normG(:, 2));
 w = [0.6 0.4];
 
 ElectreII(normG, w);
-AHP(X, G, w);
+[AHPxBest, AHPfBest] = AHP(X, G, w);
 
 % csvwrite('Result.csv', );
