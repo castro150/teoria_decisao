@@ -22,6 +22,10 @@ beta = T(:,3)';
 [xBest, fBest, X, Pareto] = SomaPonderada(custo_manutencao, fator_risco,...
     horizonte_tempo, t0, cluster, custo_falha, eta, beta);
 
+plot(Pareto(:,1),Pareto(:,2),'ro');
+xlabel('Custo de Manutenção Total'), ylabel('Custo de Falha Total');
+title('Fronteira Pareto');
+
 % Avaliação dos critérios
 [n, m] = size(X);
 G = zeros(n, 2);
