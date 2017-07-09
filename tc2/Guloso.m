@@ -31,12 +31,16 @@ for j=1:n
         if(k == 1)
             fBest = fobj;
             kBest = k;
+            f1Best = f1;
+            f2Best = f2;
         elseif(fobj < fBest)
             fBest = fobj;
             kBest = k;
+            f1Best = f1;
+            f2Best = f2;
         end
     end
-    sum_f1 = sum_f1 + w1*f1;
-    sum_f2 = sum_f2 + w2*f2;
+    sum_f1 = sum_f1 + f1Best;
+    sum_f2 = sum_f2 + f2Best;
     x(j) = kBest;
 end
