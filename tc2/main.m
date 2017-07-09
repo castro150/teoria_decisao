@@ -32,6 +32,7 @@ csvwrite('CamposCastroViana.csv', X);
 % Avaliação dos critérios
 [n, m] = size(X);
 G = zeros(n, 2);
+Custo = zeros(n, 2);
 
 for i = 1:n
     plano = X(i, :);
@@ -65,9 +66,9 @@ cm = 0.35;
 D = 0.75 * escala;
 [ElectrexBest, rank] = ElectreII(X, G, w, cp, cm, D);
 
-% PrometheeII
-[Sobreclassificacao, xBest, fBest] = PrometheeII(X, G, w);
+% FPrometheeII
+[Sobreclassificacao, FPxBest, FPfBest] = FPrometheeII(X, Custo, w);
 
 % AHP
-[AHPxBest, AHPfBest] = AHP(X, G, [0.4 0.6]);
+[AHPxBest, AHPfBest] = AHP(X, Custo, [0.4 0.6]);
 

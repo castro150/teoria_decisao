@@ -1,5 +1,5 @@
-function [Sobreclassificacao, xBest, fBest] = PrometheeII(X, G, w)
-    [na nc] = size(X);
+function [Sobreclassificacao, xBest, fBest] = FPrometheeII(X, custos, w)
+    na = size(X, 1);
     
     P1 = zeros(na, na);
     P2 = zeros(na, na);
@@ -7,10 +7,10 @@ function [Sobreclassificacao, xBest, fBest] = PrometheeII(X, G, w)
     
     for i=1:na
         for j=1:na
-            if G(i,1) > G(j,1)
+            if custos(i,1) < custos(j,1)
                 P1(i,j) = 1;
             end
-            if G(i,2) > G(j,2)
+            if custos(i,2) < custos(j,2)
                 P2(i,j) = 1;
             end
             P(i,j) = w(1)*P1(i,j) + w(2)*P2(i,j);
@@ -34,6 +34,6 @@ function [Sobreclassificacao, xBest, fBest] = PrometheeII(X, G, w)
 
     SPorAlternativa = sum(Sobreclassificacao, 2);
     xBest = X(SPorAlternativa == max(SPorAlternativa), :);
-    fBest = G(SPorAlternativa == max(SPorAlternativa), :);
+    fBest = custos(SPorAlternativa == max(SPorAlternativa), :);
 end
 

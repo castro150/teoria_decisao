@@ -1,4 +1,4 @@
-O método AHP utilizado aqui é o mesmo que o estudado em sala de aula. Para tanto, escolheu-se 5 soluções da fronteira de Pareto encontrada na otimização biobjetivo. Chamaremos aqui de \textit{c1} (critério 1) o custo de manutenção total, e de \textit{c2} (critério 2) o custo esperado de falha total. Os valores destes critérios para as 5 soluções escolhidas podem ser vistos na tabela a seguir.
+O método AHP utilizado aqui é o mesmo que o estudado em sala de aula. Para tanto, escolheu-se 5 soluções da fronteira de Pareto encontrada na otimização biobjetivo. Chamaremos aqui de \textit{c1} (critério 1) o custo de manutenção total, e de \textit{c2} (critério 2) o custo esperado de falha total. Os valores destes critérios para as 5 soluções escolhidas podem ser vistos na Tabela I.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ | l | l | l | l |}
@@ -14,7 +14,7 @@ O método AHP utilizado aqui é o mesmo que o estudado em sala de aula. Para tan
 	\caption{Avaliação das alternativas nos critérios.}
 \end{table}
 
-Agora, para a definição das prioridades de cada alternativa em cada critério, faz-se as tabelas de prioridade dando notas às alternativas. Para o primeiro critério, a tabela construída é:
+Agora, para a definição das prioridades de cada alternativa em cada critério, faz-se as tabelas de prioridade dando notas às alternativas. Para o primeiro critério, a tabela construída é a Tabela II. Para o segundo critério, a tabela construída é a Tabela III.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ | l | l | l | l | l | l | l | }
@@ -30,7 +30,6 @@ Agora, para a definição das prioridades de cada alternativa em cada critério,
 	\caption{Prioridades critério 1.}
 \end{table}
 
-Para o segundo critério, a tabela construída é:
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ | l | l | l | l | l | l | l | }
@@ -48,24 +47,23 @@ Para o segundo critério, a tabela construída é:
 
 Como visto em sala de aula, as prioridades são calculadas a partir da normalização dos termos nas colunas, tirando a média de cada linha. Agora escolhendo o peso do custo de manutenção total como sendo 0.4 e o peso do custo esperado de falha total como sendo 0.6 (consideramos que o custo de falha tem maior impacto), para cada alternativa basta multiplicar pelos pesos dos critérios cada uma de suas prioridades e somar, comparando assim o resultado obtido para todas:
 \begin{equation}
-p_i = \sum_{j=1}^{2} w_j*P_{ij}
-\label{sum_cm}
+p_i = \sum_{j=1}^{2} w_j \cdot P_{ij}
 \end{equation}
 
-O código do arquivo \texttt{AHP.m} lê as matrizes de prioridade dos arquivos \textit{AHPcriterio1.csv} e \textit{AHPcriterio2.csv}, faz os cálculos de prioridade apresentados e calcula o somatório para as comparações finais. Este somatório para cada alternativa pode ser visto na tabela seguinte:
+O código do arquivo \texttt{AHP.m} lê as matrizes de prioridade dos arquivos \textit{AHPcriterio1.csv} e \textit{AHPcriterio2.csv}, faz os cálculos de prioridade apresentados e calcula o somatório para as comparações finais. Este somatório para cada alternativa pode ser visto na Tabela IV.
 \begin{table}[h]
 	\centering
 	\begin{tabular}{ | l | l | }
 		\hline
 		Alternativa & Prioridade Final \\ \hline
-		a1 & 0.2688 \\ \hline
-		a2 & 0.1650 \\ \hline
-		a3 & 0.1369 \\ \hline
-		a4 & 0.1606 \\ \hline
-		a5 & 0.2686 \\ \hline
+		a1 & 0.3156 \\ \hline
+		a2 & 0.1845 \\ \hline
+		a3 & 0.1374 \\ \hline
+		a4 & 0.1407 \\ \hline
+		a5 & 0.2218 \\ \hline
 	\end{tabular}
 	\label{table:ahp-result}
 	\caption{Prioridades critério 2.}
 \end{table}
 
-Como se pode notar, para os pesos escolhidos para os dois critérios, a alternativa 1 se mostrou a mais promissora, mas a alternativa 5 também está muito próxima desta. Um ajuste dos pesos poderia trazer um resultado final diferente.
+Como se pode notar, para os pesos escolhidos para os dois critérios, a alternativa 1 se mostrou a mais promissora, mas a alternativa 5 também está próxima desta. Um ajuste dos pesos poderia trazer um resultado final diferente.
