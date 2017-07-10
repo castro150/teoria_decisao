@@ -1,0 +1,69 @@
+O método {\it Elimination and Choice Expressing the Reality} proposto por B. Roy em 1968, também conhecido por ELECTRE I, permite que se determine uma pré-ordem total de ações dado um conjunto de critérios. Este resultado é obtido após a execução de um número significante de passos, a fim de se determinar as relações de sobreclassificação entre duas ações. Seguindo os mesmos princípios, o método ELECTRE II se diferencia do I ao definir duas relações de classificação, a forte e a fraca, e  foi utilizado neste trabalho como um dos métodos de auxílio de tomada de decisão.
+
+As ações a serem ordenadas são os planos de manutenção que compõem a fronteira Pareto obtida previamente. Os critérios são o menor custo de manutenção ($c_1$) e o menor custo de falha esperado ($c_2$). A partir destas definições, os seguintes passos foram executados:
+
+\begin{enumerate}
+	\setlength\itemsep{1em}
+	\item {\it Ajustar a escala dos valores:} Os custos foram reescalados de forma que os máximos após o processo fossem iguais ao máximo valor inicial dentre ambos os critérios, e os mínimos, iguais à zero. Além disso, como deseja-se obter os menores valores possíveis, a escala foi invertida subtraíndo cada valor do máximo. 
+	
+	\item {\it Definir os pesos $w_j$ para cada um dos J = {1, ..., $n_c$} critérios:} Dois conjuntos de pesos foram considerados, $w_1 = 0.7$ e $w_2 = 0.3$ e vice-versa. Estes valores foram definidos de forma a representar dois tipos de decisor, aquele que prefere gastar menos agora com manutenção do que com as falhas prováveis no futuro e o seu oposto. Já aquele que não tem preferência neste sentido ($w_1 = w_2 = 0.5$) não foi considerado pois o conjunto de planos apresenta a característica de que quanto melhor um critério, pior o outro, de forma a apresentar indiferença entre as soluções.
+	
+	\item {\it Estebelecer comparações par a par gerando os seguintes índices:}
+	
+	\begin{center}
+		$J^+(a_i, a_k) =  \{j \in J | c_j(a_i) > c_j(a_k)\}$\\
+		$J^=(a_i, a_k) =  \{j \in J | c_j(a_i) = c_j(a_k)\}$\\
+		$J^-(a_i, a_k) =  \{j \in J | c_j(a_i) < c_j(a_k)\}$\\
+	\end{center}
+	
+	\item {\it Converter as relações entre as ações em valores numéricos:}
+	
+	\begin{center}
+		$P^+(a_i, a_k) = \sum_{j}{} w_j, j \in J^+(a_i, a_k)$\\
+		$P^=(a_i, a_k) = \sum_{j}{} w_j, j \in J^=(a_i, a_k)$\\
+		$P^-(a_i, a_k) = \sum_{j}{} w_j, j \in J^-(a_i, a_k)$\\
+	\end{center}
+	
+	\item {\it Calcular os índices de concordância:}
+	
+	\begin{center}
+		$C_{ik} = \frac{P^+(a_i, a_k) + P^=(a_i, a_k)}{\sum_{j \in J}w_j}$\\
+	\end{center}
+	
+	\item {\it Estabeler as relações de sobreclassificação forte ($S_s$):}
+		Um plano fortemente sobreclassifica outro no critério j se
+		\begin{center}
+			$C_{ik} \ge c^+$\\
+			e $ c_j(a_k) - c_j(a_i) \le D $\\
+			e $ \frac{P^+_{ik}}{P^-_{ik}} \ge 1$\\
+		\end{center}
+		
+		As constantes utilizadas neste passo foram determinadas analisando-se os valores de $P_{ik}$. São elas
+		
+		\begin{center}
+			$c^+= 0.65$\\
+    		$D = 0.75 * max(c_1, c_2)$\\
+		\end{center}
+		
+	\item {\it Estabeler as relações de sobreclassificação fraca ($S_w$):}
+		Um plano fracamente sobreclassifica outro no critério j se
+		\begin{center}
+			$C_{ik} \le c^-$\\
+			e $ c_j(a_k) - c_j(a_i) \le D $\\
+			e $ \frac{P^+_{ik}}{P^-_{ik}} \ge 1$\\
+		\end{center}
+		
+		Sendo
+		
+		\begin{center}
+			$c^-= 0.35$\\
+		\end{center}
+		
+	\item {\it Obter a ordem das soluções:} O processo de classificação original do ELECTRE II propõe duas etapas, a direta e a reversa. Entretanto, devido aos resultados obtidos nos itens anteriores, em que uma ação da matriz $S_s$ sobreclassifica fortemente as ações seguintes e em que $S_w$ está vazia, a ordenação foi obtida de forma direta. Isto é, a ordem foi estabelecida de acordo com o número de vezes que uma ação sobreclassifica fortemente as demais.
+\end{enumerate}
+
+Após a execução destes passos, o ELECTRE II apresentou os seguintes resultados:
+\begin{itemize}
+	\item {\it Para $w_1 = 0.7$ e $w_2 = 0.3$:} Designar planos de manutenção detalhada para as máquinas 36, 204, 318 e 358, enquanto as demais podem ficar sem plano. O custo de manutenção desta alternativa é $8$ e o custo de falha esperado é $1735.2$.
+	\item {\it Para $w_1 = 0.3$ e $w_2 = 0.7$:} Designar planos de manutenção detalhada para todas as máquinas. O custo de manutenção desta alternativa é $1000$ e o custo de falha esperado é $1048.2$.
+\end{itemize}

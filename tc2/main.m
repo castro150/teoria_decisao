@@ -58,7 +58,7 @@ G(:, 2) = escala * (Custo(:, 2) - min(Custo(:, 2))) ./ (max(Custo(:, 2)) - min(C
 % Como deseja-se o menor valor de cada custo, a escala será invertida
 G = escala - G;
 
-w = [0.7 0.3];
+w = [0.3 0.7];
 
 % ElectreII
 cp = 0.65;
